@@ -6,7 +6,7 @@ export const Wrapper = styled.section`
   flex-direction: column;
 
   /* height: 100vh; //뷰포트 높이에 따라 반응 */
-  height: calc(var(--vh, 1vh) * 100);
+  min-height: calc(var(--vh, 1vh) * 100);
   overflow: hidden; /* 스크롤 방지 */
 
   background: ${({ theme }) => theme.colors.bgGradient};
@@ -28,14 +28,14 @@ export const LogoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 27.25vh;
-  margin-bottom: 13.875vh;
+  margin-top: calc(var(--vh, 1vh) * 27.25);
+  margin-bottom: calc(var(--vh, 1vh) * 13.875);
   width: 100%;
 
   gap: 11px;
   img {
     width: auto;
-    height: 22.25vh;
+    height: calc(var(--vh, 1vh) * 22.25);
 
     @media (min-width: 540px) {
       width: 200px;
@@ -71,14 +71,14 @@ export const BtnWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2.25vh;
+  gap: calc(var(--vh, 1vh) * 2.25);
 `;
 
 export const Btn = styled.button`
   cursor: pointer;
   display: flex;
   width: 100%;
-  height: 6.25vh;
+  height: calc(var(--vh, 1vh) * 6.25);
   min-height: 44px; //핸드폰이 아무리 작아져도 이거보다 버튼이 작으면 누르기 힘듬
   justify-content: center;
   align-items: center;
@@ -99,7 +99,7 @@ export const Btn = styled.button`
 export const SignUp = styled.div`
   display: flex;
   width: 100%;
-  margin-top: 3.125vh;
+  margin-top: calc(var(--vh, 1vh) * 3.125);
   gap: 2.52vw;
   justify-content: center;
   align-items: center;
