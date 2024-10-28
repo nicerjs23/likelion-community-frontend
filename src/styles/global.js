@@ -21,7 +21,7 @@ i {font-style:normal}
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
-	min-height: 100vh;
+	min-height: calc(var(--vh, 1vh) * 100); /* 뷰포트 높이를 기반으로 설정 */
 }
 
 // Pretendard 폰트 설정

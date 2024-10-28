@@ -4,7 +4,9 @@ import styled from "styled-components";
 export const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: calc(
+    var(--vh, 1vh) * 100
+  ); /* 뷰포트 높이에 따라 반응 */
   background: ${({ theme }) => theme.colors.bgGradient};
   //background-color는 단색배경에만 적용됨
   box-sizing: border-box;

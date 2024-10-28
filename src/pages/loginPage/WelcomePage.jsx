@@ -1,7 +1,7 @@
 //랜딩페이지,웰컴페이지 담당자: 이동건
 import * as S from "./WelcomePage.styled";
-import welcomeLogo from "@assets/images/welcomeLogo.png";
-import kakao from "@assets/icons/kakao.png";
+import welcomeLogo from "@assets/icons/welcomeLogo.svg";
+import kakao from "@assets/icons/kakao.svg";
 import { useCustomNavigate } from "@hooks/useCustomNavigate";
 
 export const WelcomePage = () => {
@@ -27,7 +27,7 @@ export const WelcomePage = () => {
             <img
               src={kakao}
               alt="kakao Logo"
-              style={{ width: "auto", height: "3.75vh" }}
+              style={{ width: "auto", height: "4vh" }}
             />
             <span className="kakao">카카오 로그인</span>
           </S.Btn>
