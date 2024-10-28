@@ -6,7 +6,7 @@ export const Wrapper = styled.section`
   flex-direction: column;
 
   /* height: 100vh; //뷰포트 높이에 따라 반응 */
-  min-height: calc(var(--vh, 1vh) * 100);
+  height: calc(var(--vh, 1vh) * 100);
   overflow: hidden; /* 스크롤 방지 */
 
   background: ${({ theme }) => theme.colors.bgGradient};
