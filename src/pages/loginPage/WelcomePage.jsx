@@ -3,10 +3,21 @@ import * as S from "./WelcomePage.styled";
 import welcomeLogo from "@assets/icons/welcomeLogo.svg";
 import kakao from "@assets/icons/kakao.svg";
 import { useCustomNavigate } from "@hooks/useCustomNavigate";
+import { useEffect } from "react";
 
 export const WelcomePage = () => {
   //useCustomNavigate훅을 이용해서 버튼클릭시 이동
   const { goTo } = useCustomNavigate();
+
+  //계속 스크롤이 생기니까 강제로 body태그에서도 스크롤비활성화해보기
+  useEffect(() => {
+    // `WelcomePage`에서 스크롤 비활성화
+    document.body.style.overflow = "hidden";
+    return () => {
+      // 페이지를 벗어나면 스크롤 다시 활성화
+      document.body.style.overflow = "";
+    };
+  }, []);
 
   return (
     <S.Wrapper>
