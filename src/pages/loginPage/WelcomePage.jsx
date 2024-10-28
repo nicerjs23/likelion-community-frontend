@@ -12,11 +12,7 @@ export const WelcomePage = () => {
     <S.Wrapper>
       <S.Content>
         <S.LogoWrapper>
-          <img
-            src={welcomeLogo}
-            alt="Welcome Logo"
-            style={{ width: "auto", height: "22.25vh" }}
-          />
+          <img src={welcomeLogo} alt="Welcome Logo" />
           <S.LogoTextWrapper>
             <S.LogoText>출석부터 네트워킹까지 한번에!</S.LogoText>
             <S.LogoText className="Title">EVERION</S.LogoText>

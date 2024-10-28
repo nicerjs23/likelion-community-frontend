@@ -14,7 +14,7 @@ const fontGenerator = (
 export const theme = {
   colors: {
     // 테마 및 배경 색상
-    bgGradient: "linear-gradient(to bottom, #FF7710, #FFE4CA)", //웰컴페이지 그라데이션배경색
+    bgGradient: "linear-gradient(to bottom, #FFE4CA, #FF7710)", //웰컴페이지 그라데이션배경색
 
     fall: "#ED6308", // 가을 테마 색상
     // bottomDefault: "#FF9D52", // 하단 기본 색상

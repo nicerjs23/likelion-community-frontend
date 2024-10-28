@@ -4,9 +4,11 @@ import styled from "styled-components";
 export const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
-  min-height: calc(
-    var(--vh, 1vh) * 100
-  ); /* 뷰포트 높이에 따라 반응 */
+
+  /* height: 100vh; //뷰포트 높이에 따라 반응 */
+  height: calc(var(--vh, 1vh) * 100);
+  overflow: hidden; /* 스크롤 방지 */
+
   background: ${({ theme }) => theme.colors.bgGradient};
   //background-color는 단색배경에만 적용됨
   box-sizing: border-box;
@@ -31,6 +33,15 @@ export const LogoWrapper = styled.div`
   width: 100%;
 
   gap: 11px;
+  img {
+    width: auto;
+    height: 22.25vh;
+
+    @media (min-width: 540px) {
+      width: 200px;
+      height: 200px;
+    }
+  }
 `;
 //로고중 텍스트 감싸는거
 export const LogoTextWrapper = styled.div`
@@ -81,7 +92,7 @@ export const Btn = styled.button`
     theme.fonts.PretendardSemiBold["font-family"]};
   color: #000000;
   .kakao {
-    margin-left: 2.5vw;
+    margin-left: 8px;
   }
 `;
 
