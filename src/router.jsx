@@ -13,8 +13,8 @@ import { KakaoSignupPage } from "@pages/accountPage/KakaoSignupPage";
 import { VerificationPage } from "@pages/accountPage/VerificationPage";
 import { Loading } from "@components/account/Loading";
 import { LionAttInfoPage } from "@pages/lionAttPage/LionAttInfoPage";
-import { ChatListPage } from "@pages/ChatPage/ChatListPage";
-import { ChatPage } from "@pages/ChatPage/ChatPage";
+import { ChatListPage } from "@pages/chatPage/ChatListPage";
+import { ChatPage } from "@pages/chatPage/ChatPage";
 
 export const router = createBrowserRouter([
   {
