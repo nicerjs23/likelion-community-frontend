@@ -30,13 +30,15 @@ export const LogoWrapper = styled.div`
   align-items: center;
   margin-top: calc(var(--vh, 1vh) * 27.25);
   margin-bottom: calc(var(--vh, 1vh) * 13.875);
+  //초반에 %가잘안됐던이유는 margin값이나 padding값은 %를 했을때 가로길이 기준임!!
+  //난 세로를기준으로 27.25%줄이려고했었으니까 안맞았던거임
   width: 100%;
 
   gap: 11px;
   img {
     width: auto;
     height: calc(var(--vh, 1vh) * 22.25);
-
+    min-height: 150px;
     @media (min-width: 540px) {
       width: 200px;
       height: 200px;
