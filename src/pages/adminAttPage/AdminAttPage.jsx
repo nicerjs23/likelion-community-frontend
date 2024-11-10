@@ -1,7 +1,7 @@
 //운영진 출석페이지
 import * as S from "./AdminAttPage.styled";
 import { Header } from "@components/Header";
-import { Dropdown } from "@components/adminAtt/DropDown";
+import { Dropdown } from "@components/adminAtt/Dropdown";
 import adminPen from "@assets/icons/adminPen.svg";
 import { AttCard } from "@components/adminAtt/AttCard";
 import { useCustomNavigate } from "@hooks/useCustomNavigate";
@@ -26,7 +26,10 @@ export const AdminAttPage = () => {
           </S.WriteBtn>
         </S.ActionBar>
         <S.CardWrapper>
-          <AttCard isOpen={1} />
+          <AttCard
+            isOpen={1}
+            onClick={() => goTo("/adminAttManage")}
+          />
           <AttCard />
           <AttCard />
           <AttCard />

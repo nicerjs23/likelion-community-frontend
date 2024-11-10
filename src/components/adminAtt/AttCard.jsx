@@ -4,9 +4,9 @@ import cardOpen from "@assets/icons/cardOpen.png";
 import cardClose from "@assets/icons/cardClose.png";
 import dateIcon from "@assets/icons/dateIcon.svg";
 import pingIcon from "@assets/icons/pingIcon.svg";
-export function AttCard({ isOpen }) {
+export function AttCard({ isOpen, onClick }) {
   return (
-    <S.Wrapper $isOpen={isOpen}>
+    <S.Wrapper $isOpen={isOpen} onClick={onClick}>
       <S.Content>
         <S.TextContent>
           <div className="InfoDisplay">

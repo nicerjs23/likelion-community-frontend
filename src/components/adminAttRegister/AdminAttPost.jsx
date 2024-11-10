@@ -1,6 +1,5 @@
 //운영진 출석등록 글쓰기 박스 컴포넌트
 import * as S from "./AdminAttPost.styled.js";
-import { useState } from "react";
 import { Dropdown } from "@components/adminAtt/Dropdown.jsx";
 import postIcon from "@assets/icons/postIcon.svg";
 import FileUpload from "@components/adminAttRegister/FileUpload.jsx";
