@@ -6,6 +6,7 @@ import { Footer } from '@components/Footer'
 import attendance from '@assets/icons/attendance.svg'
 import notice from '@assets/icons/notice.svg'
 import community from '@assets/icons/community.svg'
+import { Link } from 'react-router-dom'
 
 
 export const SchMainPage = () => {
@@ -41,8 +42,8 @@ export const SchMainPage = () => {
           </S.Button>
         </S.Buttons>
         <S.Boards>
-          <Board title="전체게시판" posts={posts1}/>
-          <Board title="질문게시판" posts={posts2} />          
+          <Board title="전체게시판" posts={posts1} link='/schAllBoard' />
+          <Board title="질문게시판" posts={posts2} link='/schQnaBoard' />
         </S.Boards>
         <Footer/>
     </S.Wrapper>

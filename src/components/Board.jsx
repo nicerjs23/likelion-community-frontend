@@ -2,13 +2,17 @@
 
 import styled from "styled-components";
 import {BoardPost} from './BoardPost';
-export const Board = ({title, posts}) => {
+import { Link } from "react-router-dom";
+
+export const Board = ({title, posts, link}) => {
 
     return (
         <Wrapper>
             <Top>
                 <Title>{title}</Title>
-                <More>더보기</More>
+                <Link to={link}>
+                    <More>더보기</More>
+                </Link>
             </Top>
             <Posts>
                 {posts.map((post, index) => (
@@ -27,7 +31,6 @@ const Wrapper = styled.div`
     padding: 15px 20px;
     display: flex;
     flex-direction: column;
-
 `;
 
 const Top = styled.div`

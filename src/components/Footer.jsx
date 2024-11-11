@@ -16,7 +16,7 @@ export const Footer = () => {
     // 경로에 해당하는 id
     const path = {
         '/': 1,
-        '/': 2,
+        '/commuMain': 2,
         '/chatList': 3,
         '/school': 4,
     };
@@ -58,7 +58,7 @@ export const Footer = () => {
             </Link>
         </Button>
         <Button>
-            <Link to="/">
+            <Link to="/commuMain">
             <Icon
                 src={clickedIndex === 2 ? boardClick : board}
                 alt="board icon"

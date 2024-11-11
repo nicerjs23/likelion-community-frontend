@@ -9,7 +9,8 @@
       "@layout/*": ["src/layout/*"],
       "@pages/*": ["src/pages/*"],
       "@styles/*": ["src/styles/*"],
-      "@assets/*": ["src/assets/*"]
+      "@assets/*": ["src/assets/*"],
+      "@apis/*": ["src/apis/*"]
     }
   },
   "exclude": ["node_modules", "dist"]

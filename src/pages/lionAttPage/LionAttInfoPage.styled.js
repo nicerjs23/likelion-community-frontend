@@ -89,6 +89,7 @@ export const Title = styled.div`
     theme.fonts.PretendardSemiBold["font-family"]};
     line-height: 140%;
     letter-spacing: -0.4px;
+    overflow-wrap: anywhere;
 `
 
 export const Detail = styled.div`
@@ -97,6 +98,7 @@ export const Detail = styled.div`
     margin-bottom: 14px;
     line-height: 140%;
     letter-spacing: -0.35px;
+    overflow-wrap: anywhere;
 `
 
 export const FileDiv = styled.div`

@@ -36,6 +36,20 @@ export const AdminAttPost = ({
           <S.InputDate onChange={(e) => setDate(e.target.value)} />
           <S.InputTime onChange={(e) => setTime(e.target.value)} />
         </S.InputSectionGap>
+        <S.InputSectionGap $gap10>
+          <S.TimeDiv>
+            <S.TimeText>
+              지각기준(분):
+              <S.LateTime type="number" placeholder="ex 10" />
+            </S.TimeText>
+          </S.TimeDiv>
+          <S.TimeDiv>
+            <S.TimeText>
+              결석기준(분):
+              <S.AbsentTime placeholder="ex 30" />
+            </S.TimeText>
+          </S.TimeDiv>
+        </S.InputSectionGap>
         <S.TextareaBody
           placeholder="내용을 입력해 주세요"
           onChange={(e) => setBody(e.target.value)}

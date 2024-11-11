@@ -120,3 +120,41 @@ export const TextareaBody = styled.textarea`
     outline: none; /* 기본 outline 제거 */
   }
 `;
+
+export const TimeDiv = styled.div`
+  display: flex;
+  width: 50%;
+  height: 33px;
+  border: 1px solid #cccccc;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+  border-radius: 8px;
+`;
+export const TimeText = styled.div`
+  display: flex;
+  color: #999999;
+  font-family: ${({ theme }) =>
+    theme.fonts.PretendardSemiBold["font-family"]};
+  font-size: 14px;
+`;
+export const LateTime = styled.input`
+  border: none;
+  outline: none;
+  font-size: 14px;
+  margin-left: 8px;
+  color: #999999;
+
+  &::placeholder {
+    color: #999999;
+  }
+`;
+export const AbsentTime = styled.input`
+  border: none;
+  outline: none;
+  font-size: 14px;
+  margin-left: 8px;
+  color: #999999;
+
+  &::placeholder {
+    color: #999999;
+  }
+`;
