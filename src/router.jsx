@@ -25,7 +25,7 @@ import { PmPostingPage } from "@pages/mainPostingPage/PmPostingPage";
 import { QnAPostingPage } from "@pages/schPostingPage/QnAPostinPage";
 import { SchDefaultPostingPage } from "@pages/schPostingPage/SchDefaultPostingPage";
 import { SchAllBoardPage } from "@pages/schBoardPage/SchAllBoardPage";
-import { SchQnaBoardPage } from "@pages/schBoardPage/schQnaBoardPage";
+import { SchQnaBoardPage } from "@pages/schBoardPage/SchQnaBoardPage";
 import { CommuMainPage } from "@pages/commuPage/CommuMainPage";
 import { DefaultBoardPage } from "@pages/boardPage/DefaultBoardPage";
 import { BeBoardPage } from "@pages/boardPage/BeBoardPage";
@@ -34,6 +34,7 @@ import { PmBoardPage } from "@pages/boardPage/PmBoardPage";
 import { LionBoardPage } from "@pages/boardPage/LionBoardPage";
 import { NotiBoardPage } from "@pages/boardPage/NotiBoardPage";
 import { JoinBoardPage } from "@pages/boardPage/JoinBoardPage";
+import { MyPage } from "@pages/myPage/MyPage";
 
 export const router = createBrowserRouter([
   {
@@ -74,6 +75,7 @@ export const router = createBrowserRouter([
       { path: "lionBoard", element: <LionBoardPage /> },
       { path: "notiBoard", element: <NotiBoardPage /> },
       { path: "joinBoard", element: <JoinBoardPage /> },
+      { path: "myPage", element: <MyPage /> },
     ],
   },
 ]);

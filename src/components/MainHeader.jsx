@@ -2,6 +2,8 @@
 import styled from "styled-components";
 import logo from "@assets/images/orangeLogo.png"
 import alarm from "@assets/icons/alarm.svg"
+import { Link } from "react-router-dom";
+
 export const MainHeader = ({title}) => {
 
     return (
@@ -13,7 +15,7 @@ export const MainHeader = ({title}) => {
                 </Left>
                 <Right>
                     <img src={alarm} alt="alarm logo" />
-                    <Profile src='' alt=" profile img"></Profile>
+                    <Link to='/myPage'><Profile src='' alt=" profile img" /></Link>
                 </Right>
             </Content>
         </Wrapper>
