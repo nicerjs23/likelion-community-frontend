@@ -72,19 +72,58 @@ export const Badge = styled.div`
 `
 
 export const School = styled.div`
+    position: relative;
     border-radius: 10px;
     border: 1px solid #D9D9D9;
     background-color: #FFF;
-    padding: 20px;
+    padding: 25px;
     width: 100%;
     margin-bottom: 24px;
-
 `
 
 export const SchoolName = styled.div`
     font-family: ${({ theme }) =>
     theme.fonts.PretendardSemiBold["font-family"]};
     font-size: 16px;
+    display: flex;
+    align-items: center;
+`
+
+export const SchoolBadge = styled.div`
+    border-radius: 10px;
+    background: #D9D9D9;
+    padding: 3px 10px;
+    font-family: ${({ theme }) =>
+    theme.fonts.PretendardRegular["font-family"]};
+    font-size: 13px;
+    margin-left: 7px;
+`
+
+export const SchoolVerify = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.78);
+    color: #FFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 14px;
+    text-align: center;
+`
+export const UploadIcon = styled.img`
+    width: 13px;
+    height: 13px;
+    margin-left: 10px;
+`
+
+export const Guide = styled.div`
+    display: flex;
+    align-items: center;
 `
 
 export const Mypost = styled.div`
@@ -98,6 +137,7 @@ export const Mypost = styled.div`
     flex-direction: column;
     font-family: ${({ theme }) =>
     theme.fonts.PretendardMedium["font-family"]};
+    margin-bottom: 24px;
 `
 
 export const Post = styled.div`
@@ -119,10 +159,37 @@ export const Scrap = styled.div`
 export const PostImg = styled.img`
     width: 22px;
     height: 22px;
-
 `
 
 export const MypostTitle = styled.p`
     font-size: 16px;
-    
+    color: #000;
+    text-decoration: none;
+
+    &:active, 
+    &:focus, 
+    &:visited {
+        color: #000;
+        text-decoration: none;
+    }
+`;
+
+export const User = styled.div`
+    border-radius: 10px;
+    border: 1px solid #D9D9D9;
+    background: #FFF;
+    display: flex;
+    padding: 12px 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+`
+
+export const Btn = styled.button`
+    font-size: 16px;
+    font-family: ${({ theme }) =>
+    theme.fonts.PretendardMedium["font-family"]};
+    cursor: pointer;
 `

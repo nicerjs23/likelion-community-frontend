@@ -16,6 +16,8 @@ export const AdminAttRegisterPage = () => {
     time: "",
     body: "",
     file: null,
+    lateTime: "", // 추가된 값
+    absentTime: "", // 추가된 값
   });
   const [isActive, setIsActive] = useState(false);
 
@@ -51,7 +53,8 @@ export const AdminAttRegisterPage = () => {
       formData.date &&
       formData.time &&
       formData.body &&
-      formData.file
+      formData.lateTime &&
+      formData.absentTime
     );
   };
 
@@ -73,6 +76,12 @@ export const AdminAttRegisterPage = () => {
           setTime={(value) => handleFieldChange("time", value)}
           setBody={(value) => handleFieldChange("body", value)}
           setFile={(file) => handleFieldChange("file", file)}
+          setLateTime={(value) =>
+            handleFieldChange("lateTime", value)
+          } // 추가된 부분
+          setAbsentTime={(value) =>
+            handleFieldChange("absentTime", value)
+          } // 추가된 부분
         />
         <SubmitBtn isActive={isActive} onClick={handleSubmit} />
       </S.Content>

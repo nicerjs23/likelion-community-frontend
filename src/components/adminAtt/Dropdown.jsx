@@ -74,6 +74,7 @@ const SelectBox = styled.div`
   align-items: center;
 
   width: 100px;
+  min-width: 100px; /* 최소 너비를 100px로 고정 */
   height: 33px;
 
   border-radius: 8px;

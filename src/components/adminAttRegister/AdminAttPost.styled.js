@@ -49,6 +49,7 @@ export const InputTitle = styled.input`
   /* width: 100%; */
   height: 33px;
   flex-grow: 1;
+  min-width: 0; /* flex-grow가 적용될 때 줄어들 수 있도록 설정 */
   border: 1px solid #cccccc;
   border-radius: 8px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
@@ -67,23 +68,33 @@ export const InputTitle = styled.input`
   }
 `;
 
-export const InputDate = styled.input.attrs({ type: "date" })`
-  display: flex;
-  justify-content: center;
-  width: 50%;
-  height: 33px;
+// export const InputDate = styled.input.attrs({ type: "date" })`
+//   display: flex;
+//   justify-content: center;
+//   width: 50%;
+//   height: 33px;
 
-  border: 1px solid #cccccc;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
-  border-radius: 8px;
+//   border: 1px solid #cccccc;
+//   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+//   border-radius: 8px;
 
-  color: #999999;
-  font-family: ${({ theme }) =>
-    theme.fonts.PretendardSemiBold["font-family"]};
-  font-size: 14px;
-`;
+//   color: #999999;
+//   font-family: ${({ theme }) =>
+//     theme.fonts.PretendardSemiBold["font-family"]};
+//   font-size: 14px;
+// `;
 
 export const InputTime = styled.input.attrs({ type: "time" })`
+  -webkit-appearance: none; /* 기본 스타일 제거 (iOS) */
+  -moz-appearance: none; /* 기본 스타일 제거 (Firefox) */
+  appearance: none; /* 기본 스타일 제거 */
+  /* 시계 아이콘 스타일링 */
+  &::-webkit-calendar-picker-indicator {
+    color: #999999;
+    opacity: 1; /* 아이콘을 항상 보이게 설정 */
+    cursor: pointer; /* 커서 스타일 */
+  }
+
   display: flex;
   justify-content: center;
   width: 50%;
@@ -123,6 +134,7 @@ export const TextareaBody = styled.textarea`
 
 export const TimeDiv = styled.div`
   display: flex;
+  align-items: center;
   width: 50%;
   height: 33px;
   border: 1px solid #cccccc;
@@ -131,27 +143,37 @@ export const TimeDiv = styled.div`
 `;
 export const TimeText = styled.div`
   display: flex;
+  margin-left: 5px;
+  white-space: nowrap;
   color: #999999;
   font-family: ${({ theme }) =>
     theme.fonts.PretendardSemiBold["font-family"]};
   font-size: 14px;
 `;
-export const LateTime = styled.input`
+export const LateTime = styled.input.attrs({ type: "number" })`
+  display: flex;
+  width: 90%;
+  height: 90%;
   border: none;
   outline: none;
   font-size: 14px;
-  margin-left: 8px;
+  margin-left: 5px;
+  margin-right: 5px;
   color: #999999;
 
   &::placeholder {
     color: #999999;
   }
 `;
-export const AbsentTime = styled.input`
+export const AbsentTime = styled.input.attrs({ type: "number" })`
+  display: flex;
+  width: 90%;
+  height: 90%;
   border: none;
   outline: none;
   font-size: 14px;
-  margin-left: 8px;
+  margin-left: 5px;
+  margin-right: 5px;
   color: #999999;
 
   &::placeholder {

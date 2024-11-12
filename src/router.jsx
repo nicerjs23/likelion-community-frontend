@@ -35,6 +35,9 @@ import { LionBoardPage } from "@pages/boardPage/LionBoardPage";
 import { NotiBoardPage } from "@pages/boardPage/NotiBoardPage";
 import { JoinBoardPage } from "@pages/boardPage/JoinBoardPage";
 import { MyPage } from "@pages/myPage/MyPage";
+import { MyPostPage } from "@pages/myPage/MyPostPage";
+import { MyCommentPage} from "@pages/myPage/MyCommentPage";
+import { MyScrapPage } from "@pages/myPage/MyScrapPage";
 
 export const router = createBrowserRouter([
   {
@@ -76,6 +79,9 @@ export const router = createBrowserRouter([
       { path: "notiBoard", element: <NotiBoardPage /> },
       { path: "joinBoard", element: <JoinBoardPage /> },
       { path: "myPage", element: <MyPage /> },
+      { path: "myPost", element: <MyPostPage /> },
+      { path: "myComment", element: <MyCommentPage /> },
+      { path: "myScrap", element: <MyScrapPage /> },
     ],
   },
 ]);

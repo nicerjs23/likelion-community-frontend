@@ -47,9 +47,15 @@ const AdminAttCode = ({ code, setCode }) => {
     newCode[index] = value.slice(-1); // 마지막 숫자만 사용
     setCode(newCode);
 
-    // 다음 인풋으로 자동 포커스
+    // 숫자입력시 다음 인풋으로 자동 포커스
     if (value && index < code.length - 1) {
       document.getElementById(`code-input-${index + 1}`).focus();
+    }
+  };
+  //지울때 왼쪽으로 자동 포커스
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace" && !code[index] && index > 0) {
+      document.getElementById(`code-input-${index - 1}`).focus();
     }
   };
 
@@ -62,8 +68,10 @@ const AdminAttCode = ({ code, setCode }) => {
           id={`code-input-${index}`}
           value={num}
           onChange={(e) => handleChange(e, index)}
+          onKeyDown={(e) => handleKeyDown(e, index)}
           maxLength={1}
           $isFilled={!!num}
+          inputMode="numeric" // 숫자 자판 유지
         />
       ))}
     </InputWrapper>
