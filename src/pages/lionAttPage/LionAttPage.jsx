@@ -5,7 +5,7 @@ import { Header } from "@components/Header";
 import { Dropdown } from "@components/adminAtt/Dropdown";
 import adminPen from "@assets/icons/adminPen.svg";
 import { AttCard } from "@components/adminAtt/AttCard";
-import { LionAttCard } from "@components/lionAttPage/LionAttcard";
+import { LionAttCard } from "@components/lionAttPage/LionAttCard";
 import { useCustomNavigate } from "@hooks/useCustomNavigate";
 import axiosInstance from "@apis/axiosInstance"; // axiosInstance 가져오기
 import { useEffect, useState } from "react";

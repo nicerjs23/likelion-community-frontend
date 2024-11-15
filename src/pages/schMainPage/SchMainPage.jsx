@@ -7,9 +7,26 @@ import attendance from "@assets/icons/attendance.svg";
 import notice from "@assets/icons/notice.svg";
 import community from "@assets/icons/community.svg";
 import { useCustomNavigate } from "@hooks/useCustomNavigate";
+import axiosInstance from "@apis/axiosInstance"; // axiosInstance 가져오기
+import { useState, useEffect } from "react";
 
 export const SchMainPage = () => {
   const { goTo } = useCustomNavigate();
+  const [isStaff, setIsStaff] = useState(false); //운영진유무 상태관리
+  // API 호출 및 is_staff 값 가져오기
+  useEffect(() => {
+    const fetchIsStaff = async () => {
+      try {
+        const response = await axiosInstance.get("/attendance/main/");
+        setIsStaff(response.data.user_info.is_staff);
+      } catch (error) {
+        console.error("Error fetching is_staff:", error);
+      }
+    };
+
+    fetchIsStaff();
+  }, []);
+  console.log("운영진이니?:", isStaff);
   // 예시 데이터
   const posts1 = [
     { time: "6", user: "익명", content: "내용입니다내용입니다" },
@@ -27,7 +44,9 @@ export const SchMainPage = () => {
     <S.Wrapper>
       <MainHeader title="멋사대학교" />
       <S.Buttons>
-        <S.Button onClick={() => goTo("/adminAtt")}>
+        <S.Button
+          onClick={() => goTo(isStaff ? "/adminAtt" : "/lionAtt")}
+        >
           <img src={attendance} alt="attendance" />
           <S.Title>출석</S.Title>
         </S.Button>
