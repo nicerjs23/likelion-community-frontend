@@ -19,6 +19,8 @@ export const ContentWrap = styled.div`
 
 export const PasswordWrapper = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
   div {
     width: 80%;
@@ -34,8 +36,8 @@ export const CheckButton = styled.button`
   text-align: center;
   height: 60px;
   width: 80px;
+  margin-top: 10px;
   margin-left: 20px;
-  margin-top: 20px;
   padding: 8px 12px;
   font-size: 14px;
   background-color: #d9d9d9;

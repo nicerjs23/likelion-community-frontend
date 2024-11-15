@@ -1,10 +1,25 @@
 // 작성 시간, 작성자 이름, 댓글 수, 추천 수
 import styled from 'styled-components'
-export const BoardInfo = ({time, name, comment, recommend}) => {
+export const BoardInfo = ({time, writer, anonymous, comments_count, scraps_count}) => {
+
+    const getTime = (time) => {
+        const date=new Date(time);
+        const now = new Date();
+        const elapseTime = Math.floor((now - date) / (1000 * 60));
+
+        if (elapseTime < 60) return `${elapseTime}분 전`;
+        if (elapseTime < 1440) return `${Math.floor(elapseTime / 60)}시간 전`;
+        return `${Math.floor(elapseTime / 1440)}일 전`;
+    }
+
+    const elapseTime = getTime(time);
+
+    const user = anonymous ? '익명' : writer;
+
     return (
         <Wrapper>
-            { time }분 전 | { name } | 댓글 { comment } | 추천 
-            <Color>{ recommend }</Color>
+            { elapseTime } | { user } | 댓글 { comments_count } | 추천 
+            <Color>{ scraps_count }</Color>
         </Wrapper>
 
     )

@@ -68,21 +68,32 @@ export const InputTitle = styled.input`
   }
 `;
 
-// export const InputDate = styled.input.attrs({ type: "date" })`
-//   display: flex;
-//   justify-content: center;
-//   width: 50%;
-//   height: 33px;
+export const InputPlace = styled.input`
+  display: flex;
+  align-items: center;
+  padding: 7px;
+  box-sizing: border-box;
+  /* width: 100%; */
+  height: 33px;
+  flex-grow: 1;
+  min-width: 0; /* flex-grow가 적용될 때 줄어들 수 있도록 설정 */
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
 
-//   border: 1px solid #cccccc;
-//   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
-//   border-radius: 8px;
+  color: #5b5b5b;
+  font-size: 14px;
+  font-family: ${({ theme }) =>
+    theme.fonts.PretendardSemiBold["font-family"]};
 
-//   color: #999999;
-//   font-family: ${({ theme }) =>
-//     theme.fonts.PretendardSemiBold["font-family"]};
-//   font-size: 14px;
-// `;
+  &::placeholder {
+    color: #999999; /* 원하는 색상으로 변경 */
+  }
+  &:focus {
+    border-color: #5b5b5b; /* 원하는 색상으로 변경 */
+    outline: none; /* 기본 outline 제거 */
+  }
+`;
 
 export const InputTime = styled.input.attrs({ type: "time" })`
   -webkit-appearance: none; /* 기본 스타일 제거 (iOS) */

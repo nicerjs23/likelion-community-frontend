@@ -82,13 +82,7 @@ export const LoginPage = () => {
       <Header title="로그인" />
       <S.ContentWrap>
         {/* 아이디 입력 필드 */}
-        <InputBox
-          title="아이디"
-          placeholder="아이디를 입력해 주세요"
-          icon={idIcon}
-          value={id}
-          onChange={handleId}
-        />
+        <InputBox title="아이디" placeholder="아이디를 입력해 주세요" icon={idIcon} value={id} onChange={handleId} />
         {/* 비밀번호 입력 필드 */}
         <InputBox
           title="비밀번호"
@@ -102,17 +96,9 @@ export const LoginPage = () => {
         />
 
         {/* 오류 메시지 */}
-        {showErrorMessage && (
-          <S.ErrorMessage>
-            아이디 또는 비밀번호가 잘못되었습니다.
-          </S.ErrorMessage>
-        )}
+        {showErrorMessage && <S.ErrorMessage>아이디 또는 비밀번호가 잘못되었습니다.</S.ErrorMessage>}
         {/* 로그인 버튼 */}
-        <Button
-          onClick={onClickConfirmButton}
-          disabled={notAllow}
-          btnName="로그인"
-        />
+        <Button onClick={onClickConfirmButton} disabled={notAllow} btnName="로그인" />
         {/* 회원가입 링크 */}
         <S.Signup>
           <span className="text">아직 회원이 아니신가요?</span>

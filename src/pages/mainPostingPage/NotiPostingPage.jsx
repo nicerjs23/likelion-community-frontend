@@ -3,7 +3,9 @@
 import * as S from "./PostingPage.styled";
 import { Header } from "@components/Header";
 import { PostingBox } from "@components/post/PostingBox";
-import { PostingBtn } from "@components/post/PostingBtn";
+import axiosInstance from "@apis/axiosInstance";
+import useFetchCsrfToken from "@hooks/useFetchCsrfToken";
+import { useCustomNavigate } from "@hooks/useCustomNavigate";
 
 export const NotiPostingPage = () => {
   return (

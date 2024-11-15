@@ -53,9 +53,11 @@ export const LocationImg = styled.img`
 `;
 
 export const Date = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: #767676;
   font-size: 14px;
-
   font-family: ${({ theme }) =>
     theme.fonts.PretendardSemiBold["font-family"]};
   display: flex;
@@ -66,12 +68,32 @@ export const DateImg = styled.img`
   height: 16px;
   margin-right: 4px;
 `;
+export const EditDelete = styled.div`
+  display: flex;
+`;
+
+export const EditBtn = styled.button`
+  display: flex;
+
+  color: #767676;
+  font-size: 14px;
+  font-family: ${({ theme }) =>
+    theme.fonts.PretendardSemiBold["font-family"]};
+`;
+
+export const DeleteBtn = styled.button`
+  display: flex;
+  color: #767676;
+  font-size: 14px;
+  font-family: ${({ theme }) =>
+    theme.fonts.PretendardSemiBold["font-family"]};
+`;
 
 export const Title = styled.div`
   display: flex;
   color: #111111;
   font-size: 16px;
-
+  margin-top: 4px;
   font-family: ${({ theme }) =>
     theme.fonts.PretendardSemiBold["font-family"]};
 `;

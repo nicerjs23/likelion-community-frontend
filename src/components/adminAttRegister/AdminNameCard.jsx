@@ -2,13 +2,17 @@
 
 import styled from "styled-components";
 
-export const AdminNameCard = ({ adminName, adminYear }) => {
+export const AdminNameCard = ({
+  profile_image,
+  nickname,
+  membership_term,
+}) => {
   return (
     <Wrapper>
       <Content>
-        <Profile />
+        <Profile $profileImage={profile_image} />
         <InfoText>
-          담당자: {adminName} | <span> {adminYear}기 운영진</span>
+          담당자: {nickname} |<span> {membership_term}기 운영진</span>
         </InfoText>
       </Content>
     </Wrapper>
@@ -32,12 +36,19 @@ const Content = styled.div`
   gap: 15px;
 `;
 
-const Profile = styled.div`
+// prop을 필터링하여 DOM에 전달되지 않도록 처리
+const Profile = styled.div.attrs(({ $profileImage }) => ({
+  style: {
+    backgroundImage: $profileImage ? `url(${$profileImage})` : "none",
+  },
+}))`
   display: flex;
   width: 55px;
   height: 55px;
   border-radius: 50%;
   background-color: lightgray;
+  background-size: cover;
+  background-position: center;
 `;
 
 const InfoText = styled.div`

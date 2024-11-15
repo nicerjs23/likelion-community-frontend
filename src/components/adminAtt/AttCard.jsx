@@ -4,7 +4,15 @@ import cardOpen from "@assets/icons/cardOpen.png";
 import cardClose from "@assets/icons/cardClose.png";
 import dateIcon from "@assets/icons/dateIcon.svg";
 import pingIcon from "@assets/icons/pingIcon.svg";
-export function AttCard({ isOpen, onClick }) {
+export function AttCard({
+  isOpen,
+  onClick,
+  date,
+  place,
+  time,
+  title,
+  track,
+}) {
   return (
     <S.Wrapper $isOpen={isOpen} onClick={onClick}>
       <S.Content>
@@ -12,15 +20,17 @@ export function AttCard({ isOpen, onClick }) {
           <div className="InfoDisplay">
             <S.InfoTextBox>
               <S.InfoIcon src={dateIcon} alt="dateIcon" />
-              <S.InfoText>2024년 10월 19일 18:30~</S.InfoText>
+              <S.InfoText>
+                {date} {time}~
+              </S.InfoText>
             </S.InfoTextBox>
             <S.InfoTextBox>
               <S.InfoIcon src={pingIcon} alt="pingIcon" />
-              <S.InfoText>신공학관 5147</S.InfoText>
+              <S.InfoText>{place}</S.InfoText>
             </S.InfoTextBox>
           </div>
           <S.TitleText>
-            [백엔드] 9주차 세션 배포 쉽게하기 긴제목
+            [{track}] {title}
           </S.TitleText>
         </S.TextContent>
         <S.cardOpenIcon

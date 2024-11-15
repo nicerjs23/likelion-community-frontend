@@ -17,7 +17,8 @@ export const ContentWrap = styled.div`
 `;
 
 export const Text = styled.p`
-  font-family: ${({ theme }) => theme.fonts.PretendardMedium["font-family"]};
+  font-family: ${({ theme }) =>
+    theme.fonts.PretendardMedium["font-family"]};
   font-size: 18px;
   color: #000000;
   margin-bottom: 10px;
@@ -35,7 +36,8 @@ export const SampleImg = styled.div`
   margin-bottom: 20px;
 
   p {
-    font-family: ${({ theme }) => theme.fonts.PretendardSemiBold["font-family"]};
+    font-family: ${({ theme }) =>
+      theme.fonts.PretendardSemiBold["font-family"]};
     font-size: 13px;
     color: #000000;
     align-self: flex-start;
@@ -47,7 +49,8 @@ export const SampleImg = styled.div`
   }
 
   .Notice {
-    font-family: ${({ theme }) => theme.fonts.PretendardMedium["font-family"]};
+    font-family: ${({ theme }) =>
+      theme.fonts.PretendardMedium["font-family"]};
     font-size: 10px;
     color: #000000;
     text-align: center;
@@ -74,18 +77,36 @@ export const InputBox = styled.div`
 export const InputImg = styled.label`
   cursor: pointer;
   display: flex;
+  align-items: center;
   height: 100%;
-  padding: 20px 20px 20px 160px;
+  padding: 10px;
   border-radius: 20px;
   background-color: #ffffff;
+  border: 1px solid #d9d9d9;
+  box-sizing: border-box;
 
   background-image: url(${(props) => props.img});
   background-repeat: no-repeat;
-  background-position: calc(100% - 20px) center;
+  background-position: calc(100% - 10px) center;
 `;
 
-export const Input = styled.input`
-  display: none;
+export const FileInput = styled.input`
+  display: block;
+  width: 0;
+  height: 0;
+  opacity: 0;
+`;
+
+export const FileName = styled.span`
+  font-family: ${({ theme }) =>
+    theme.fonts.PretendardMedium["font-family"]};
+  font-size: 14px;
+  color: #333;
+  margin-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px; /* 파일명이 너무 길 때 잘리도록 최대 너비 설정 */
 `;
 
 export const Confirm = styled.button`
@@ -98,7 +119,8 @@ export const Confirm = styled.button`
 
 export const CompleteMessage = styled.p`
   color: #26b01f;
-  font-family: ${({ theme }) => theme.fonts.PretendardMedium["font-family"]};
+  font-family: ${({ theme }) =>
+    theme.fonts.PretendardMedium["font-family"]};
   font-size: 15px;
   text-align: center;
   margin-top: 15px;
@@ -107,7 +129,8 @@ export const CompleteMessage = styled.p`
 export const LogIn = styled.div`
   text-align: center;
   color: #a9a9a9;
-  font-family: ${({ theme }) => theme.fonts.PretendardMedium["font-family"]};
+  font-family: ${({ theme }) =>
+    theme.fonts.PretendardMedium["font-family"]};
   font-weight: 500;
   font-size: 16px;
   padding-bottom: 50px;

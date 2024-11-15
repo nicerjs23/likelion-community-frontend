@@ -2,33 +2,31 @@
 import React from 'react'
 import * as S from './Board.styled'
 import { BoardInfo as BoardInfoComponent } from './BoardInfo'
-import exampleImg from '@assets/icons/exampleImg.svg'
 
-export const Board = ({title,context,pin}) => {
-
-    const BoardInfo = [
-        {time: 6, name: '익명',comment:3, recommend: 10, img: ''}
-    ]
-
+export const Board = ({id, title, body, time, anonymous, writer, comments_count, scraps_count, images}) => {
+    
+    const image = images && images.length > 0 ? images[0].image : null;
+    
     return (
-        <S.Wrapper pin={pin}>
+        <S.Wrapper>
             <S.Left>
                 {/* <S.Top> */}
                     <S.Title>
                         {title}
                     </S.Title>
                     <S.Context>
-                        {context}
+                        {body}
                     </S.Context>                    
                 {/* </S.Top> */}
                 <BoardInfoComponent 
-                    time={BoardInfo[0].time}
-                    name={BoardInfo[0].name}
-                    comment={BoardInfo[0].comment}
-                    recommend={BoardInfo[0].recommend}
+                    time={time}
+                    anonymous={anonymous}
+                    writer={writer}
+                    comments_count={comments_count}
+                    scraps_count={scraps_count}
                 />
             </S.Left>
-            <S.RightImg src={exampleImg}/>
+            {image && <S.RightImg src={image}/>}
         </S.Wrapper>
     )
 }

@@ -59,6 +59,11 @@ export const Input = styled.input`
   margin-left: 8px;
   background-color: transparent;
 
+  &::-ms-reveal,
+  &::-ms-clear {
+    display: none;
+  }
+
   &::placeholder {
     color: #a9a9a9;
   }

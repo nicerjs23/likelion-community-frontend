@@ -25,12 +25,13 @@ export const MainHeader = ({title}) => {
 const Wrapper = styled.div`
     width: 100%;
     max-width: 540px;
-    height: 35px;
+    height: 7.25vh;
     background-color: #F1F3F5;
     position: fixed;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 2;
 `;
 
 const Content = styled.div`

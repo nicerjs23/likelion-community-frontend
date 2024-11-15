@@ -17,6 +17,7 @@ export const Content = styled.div`
     gap: 9px;
     margin-top: 7.25vh;
     padding: 9px 0;
+    width: 100%;
 `
 
 export const Back = styled.div`

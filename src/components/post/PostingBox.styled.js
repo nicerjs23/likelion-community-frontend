@@ -21,7 +21,7 @@ export const Title = styled.input`
 `;
 
 export const ContentWrapper = styled.div`
-  height: 550px;
+  height: 65vh;
   display: flex;
   flex-direction: column;
 `;
@@ -30,7 +30,7 @@ export const Content = styled.textarea`
   font-family: ${({ theme }) => theme.fonts.PretendardMedium["font-family"]};
   font-size: 12px;
   outline: none;
-  height: 45%;
+  flex: 1;
   vertical-align: top;
   margin: 10px 0;
   resize: none;
@@ -106,4 +106,8 @@ export const ImagePreview = styled.img`
   width: 75%; /* 원하는 미리보기 이미지 크기로 조절 */
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
+export const Button = styled.div`
+  width: 85%;
 `;
