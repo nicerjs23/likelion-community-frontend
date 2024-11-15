@@ -19,6 +19,7 @@ export const MyPage = () => {
     email: "",
     profile_image: "",
     membership_term: "",
+    membership_term: "",
     role: "",
   });
   const [schoolVerified, setSchoolVerified] = useState("");
@@ -103,6 +104,10 @@ export const MyPage = () => {
     const formData = new FormData();
     formData.append("verification_photo", verificationPhoto);
 
+    // 학교 인증사진 들어가는지
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}:`, value); // 키와 해당 값을 출력
+    }
     try {
       const response = await axiosInstance.post("/mypage/schoolverification/", formData, {
         headers: {

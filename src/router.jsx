@@ -43,7 +43,7 @@ import { LionPostPage } from "@pages/mainPostPage/LionPostPage";
 import { NotiPostPage } from "@pages/mainPostPage/NotiPostPage";
 import { PmPostPage } from "@pages/mainPostPage/PmPostPage";
 import { QnAPostPage } from "@pages/schPostPage/QnAPostPage";
-import { SchDefaultPostPage } from "@pages/schPostPage/schDefaultPostPage";
+import { SchDefaultPostPage } from "@pages/schPostPage/SchDefaultPostPage";
 import { MyPostPage } from "@pages/myPage/MyPostPage";
 import { MyCommentPage } from "@pages/myPage/MyCommentPage";
 import { MyScrapPage } from "@pages/myPage/MyScrapPage";

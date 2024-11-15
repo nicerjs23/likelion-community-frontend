@@ -1,26 +1,42 @@
 // 내가 쓴 글 페이지에 들어갈 게시글
-import React from 'react'
-import * as S from './MyPagePost.styled'
-import myComment from '@assets/icons/myComment.svg';
 
-export const MyPagePost = ({board_title,title,content,image_url,comments_count,time,writer}) => {
-    return (
-        <S.Wrapper>
-            <S.BoardTitle>#{board_title}</S.BoardTitle>
-            <S.PostTitle>{title}</S.PostTitle>
-            <S.Content>
-                <S.Context>
-                    {content}
-                </S.Context>
-                <S.PostImg src={image_url}/>
-            </S.Content>
-            <S.PostInfo>
-                <S.PostIcon src={myComment}/>
-                <S.CommentCount>{comments_count}</S.CommentCount>
-                | {time}분 전 | {writer}
-            </S.PostInfo>
-        </S.Wrapper>
-    )
-}
+import React from "react";
+import * as S from "./MyPagePost.styled";
+import myComment from "@assets/icons/myComment.svg";
 
-export default MyPagePost
+export const MyPagePost = ({ board_title, title, body, images, comments_count, time, writer, anonymous }) => {
+  const image = images && images.length > 0 ? `http://everion.store${images[0].image}` : null;
+
+  const getTime = (time) => {
+    const date = new Date(time);
+    const now = new Date();
+    const elapseTime = Math.floor((now - date) / (1000 * 60));
+
+    if (elapseTime < 60) return `${elapseTime}분 전`;
+    if (elapseTime < 1440) return `${Math.floor(elapseTime / 60)}시간 전`;
+    return `${Math.floor(elapseTime / 1440)}일 전`;
+  };
+
+  const elapseTime = getTime(time);
+
+  const user = anonymous ? "익명" : writer;
+
+  return (
+    <S.Wrapper>
+      <S.BoardTitle>#{board_title}</S.BoardTitle>
+      <S.Content>
+        <S.Left>
+          <S.PostTitle>{title}</S.PostTitle>
+          <S.Context>{body}</S.Context>
+          <S.PostInfo>
+            <S.PostIcon src={myComment} />
+            <S.CommentCount>{comments_count}</S.CommentCount>| {elapseTime} | {user}
+          </S.PostInfo>
+        </S.Left>
+        {image && <S.PostImg src={image} alt="게시글 이미지" />}
+      </S.Content>
+    </S.Wrapper>
+  );
+};
+
+export default MyPagePost;
