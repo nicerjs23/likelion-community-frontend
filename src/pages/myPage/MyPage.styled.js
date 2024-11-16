@@ -69,6 +69,12 @@ export const Badge = styled.div`
   padding: 3px 10px;
 `;
 
+export const Track = styled.div`
+  border-radius: 10px;
+  background: #d9d9d9;
+  padding: 3px 10px;
+`;
+
 export const School = styled.div`
   position: relative;
   border-radius: 10px;

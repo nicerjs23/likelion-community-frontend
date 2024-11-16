@@ -28,7 +28,7 @@ export const JoinBoardPage = () => {
 
     return (
         <S.Wrapper>
-            <Header title="참여 게시판"/>
+            <Header title="참여게시판"/>
             <S.Content>
                 {posts.filter(post => post.board_title === '참여게시판').map((post, id) => (
                     <Link to={`/joinPostPage/${post.id}`} style={{"width":"100%"}}>

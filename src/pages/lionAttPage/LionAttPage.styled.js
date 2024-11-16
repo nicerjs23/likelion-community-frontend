@@ -29,3 +29,34 @@ export const CardWrapper = styled.section`
   flex-direction: column;
   gap: 12px;
 `;
+
+export const LionAttScore = styled.div`
+  margin-top: 15px;
+  display: flex;
+  width: 100%;
+  height: 100px;
+  background-color: #fff;
+  border-radius: 32px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ScoreContent = styled.div`
+  display: flex;
+  gap: 60px;
+`;
+
+export const ScoreText = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: #767676;
+  font-size: 16px;
+  font-family: ${({ theme }) =>
+    theme.fonts.PretendardSemiBold["font-family"]};
+  .score {
+    color: #000000;
+    font-size: 22px;
+  }
+`;

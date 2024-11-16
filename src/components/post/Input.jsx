@@ -2,16 +2,73 @@
 import styled from "styled-components";
 import check from "@assets/icons/check.svg";
 import comment from "@assets/icons/comment.svg";
+import { useState } from "react";
+import axiosInstance from "@apis/axiosInstance";
 
-export const Input = () => {
+export const Input = ({ postId, onAddComment }) => {
+
+  const [content, setContent] = useState("");
+  const [anonymous, setAnonymous] = useState(false);
+  const [submit, setSubmit] = useState(false);
+
+  const handleSubmit = async () => {
+    if (!content.trim()) {
+      alert("댓글 내용을 입력해주세요.");
+      return;
+    }
+
+    setSubmit(true);
+    try {
+      const requestBody = {
+        content: content.trim(),
+        anonymous: anonymous,
+        board: postId,
+      };
+
+     
+      const response = await axiosInstance.post(
+        "/post/maincomment/",
+        requestBody,
+        {
+          headers: {
+            "Content-Type": "application/json", // FormData 전송 시 헤더 설정
+          },
+        }
+      );
+      console.log("댓글 작성 성공:", response.data);
+
+      if (onAddComment) {
+        onAddComment(response.data);
+      }
+
+      // 입력 필드 초기화
+      setContent("");
+      setAnonymous(false);
+    } catch (error) {
+      console.error("댓글 작성 실패:", error);
+      alert("댓글 작성에 실패했습니다. 다시 시도해주세요.");
+    } finally {
+      setSubmit(false);
+    }
+  };
+
   return (
     <WriteWrap>
       <Check>
-        <CheckBox type="checkbox"></CheckBox>
+        <CheckBox 
+          type="checkbox"
+          id="check"
+          checked={anonymous}
+          onChange={(e) => setAnonymous(e.target.checked)}
+        />
         <CheckLabel htmlFor="check">익명</CheckLabel>
       </Check>
-      <Write placeholder="댓글을 입력해주세요."></Write>
-      <WriteBtn></WriteBtn>
+      <Write
+        placeholder="댓글을 입력해주세요."
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+      />
+      <WriteBtn onClick={handleSubmit} disabled={submit}></WriteBtn>
     </WriteWrap>
   );
 };

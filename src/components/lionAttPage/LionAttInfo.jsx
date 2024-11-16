@@ -1,10 +1,10 @@
 // 운영진 출석 정보 확인카드 컴포넌트
 import * as S from "@components/adminAttManage/AdminAttInfo.styled";
-import { useState } from "react";
 import list from "@assets/icons/list.svg";
 import dateIcon from "@assets/icons/date.svg";
 import location from "@assets/icons/location.svg";
 import image from "@assets/icons/image.svg";
+
 export const LionAttInfo = ({
   date,
   time,
@@ -44,14 +44,16 @@ export const LionAttInfo = ({
         </S.Gap5>
         <S.Detail>{description}</S.Detail>
 
-        {file && (
-          <S.FileDiv>
+        <S.FileDiv>
+          {file ? (
             <a href={file} target="_blank" rel="noopener noreferrer">
               <S.FileName>{getFileName(file)}</S.FileName>
             </a>
-            <img src={image} alt="file icon" />
-          </S.FileDiv>
-        )}
+          ) : (
+            <S.FileName>파일이 없습니다.</S.FileName>
+          )}
+          <img src={image} alt="file icon" />
+        </S.FileDiv>
       </S.Mid>
     </S.Wrapper>
   );

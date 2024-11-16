@@ -1,4 +1,4 @@
-// 자유 게시판 글 상세 페이지
+// DefaultPostPage.js
 
 import * as S from "./PostPage.styled";
 import { Header } from "@components/Header";
@@ -10,26 +10,63 @@ import { useState, useEffect } from "react";
 import axiosInstance from "@apis/axiosInstance";
 
 export const DefaultPostPage = () => {
-
   const { id } = useParams();
+  const postId = Number(id);
   const [post, setPost] = useState(null);
-  // const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState([]);
 
+
+  // 게시물 가져오기
   const fetchPost = async () => {
     try {
-      const response = await axiosInstance.get(`/post/mainboard/${id}`);
-      console.log('response success:', response.data);
+      const response = await axiosInstance.get(`/post/mainboard/${postId}`);
+      console.log("response success:", response.data);
       setPost(response.data);
-    } catch(error) {
-      console.log("error:",error);
+    } catch (error) {
+      console.log("error:", error);
+      setError("게시물을 불러오는 데 실패했습니다.");
     }
-  }
+  };
+
+  // 댓글 가져오기
+  const fetchComments = async () => {
+    try {
+      const response = await axiosInstance.get(`/post/maincomment/?board_id=${postId}`);
+      console.log("comments response:", response.data);
+      const data = response.data.results || response.data;
+
+      const commentsArray = Array.isArray(data)
+        ? data.filter(comment => Number(comment.board) === postId)
+        : data && Number(data.board) === postId
+        ? [data]
+        : [];
+
+      setComments(commentsArray);
+    } catch (error) {
+      console.log("error:", error);
+      setError("댓글을 불러오는 데 실패했습니다.");
+    }
+  };
 
   useEffect(() => {
-    if (id) {
-      fetchPost();
+    const fetchData = async () => {
+      await fetchPost();
+      await fetchComments();
+    };
+
+    if (postId) {
+      fetchData();
     }
-  },[id])
+  }, [postId]);
+
+  useEffect(() => {
+    console.log("Updated comments:", comments);
+  }, [comments]);
+
+  // 댓글 추가 함수
+  const handleAddComment = (newComment) => {
+    setComments((prevComments) => [...prevComments, newComment]);
+  };
 
   if (!post) { // 로딩 중인 경우
     return ;
@@ -37,8 +74,8 @@ export const DefaultPostPage = () => {
 
   return (
     <S.Wrapper>
-      <Header title="자유 게시판" />
-      <Content 
+      <Header title="자유게시판" />
+      <Content
         id={post.id}
         title={post.title}
         body={post.body}
@@ -46,16 +83,17 @@ export const DefaultPostPage = () => {
         likes_count={post.likes_count}
         scraps_count={post.scraps_count}
         time={post.time}
-        writer={post.writer.name}
+        writer={post.writer.nickname}
         anonymous={post.anonymous}
         username={post.writer.username} // unique 속성
       />
       <S.CommentWrap>
-        <S.CommentTitle>댓글(2)</S.CommentTitle>
-        <Comments />
-        <Comments />
+        <S.CommentTitle>댓글({comments.length})</S.CommentTitle>
+        {comments.map((comment) => (
+          <Comments key={comment.id} comment={comment} />
+        ))}
       </S.CommentWrap>
-      <Input />
+      <Input postId={post.id} onAddComment={handleAddComment} />
     </S.Wrapper>
   );
 };

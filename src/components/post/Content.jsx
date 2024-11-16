@@ -1,6 +1,6 @@
 // 게시글 상세
 
-import * as S from "./Content.styled";
+import * as S from "../post/Content.styled";
 import React, { useState, useEffect } from "react";
 import profileLion from "@assets/icons/profileLion.svg";
 import axiosInstance from "@apis/axiosInstance";

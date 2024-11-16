@@ -5,6 +5,7 @@ import { Dropdown } from "@components/adminAtt/Dropdown.jsx";
 import postIcon from "@assets/icons/postIcon.svg";
 import FileUpload from "@components/adminAttRegister/FileUpload.jsx";
 import Calendar from "@components/adminAttRegister/Calendar.jsx";
+import { format } from "date-fns"; // 날짜 포맷을 위해 date-fns 라이브러리 사용
 
 export const AdminAttPost = ({
   setDropdownValue,
@@ -19,7 +20,11 @@ export const AdminAttPost = ({
 }) => {
   const [lateTime, setLocalLateTime] = useState("");
   const [absentTime, setLocalAbsentTime] = useState("");
-
+  // 날짜를 YYYY-MM-DD 형식으로 변환하여 부모 컴포넌트에 전달
+  const handleDateChange = (date) => {
+    const formattedDate = format(date, "yyyy-MM-dd");
+    setDate(formattedDate);
+  };
   // 유효성 검사 함수
   const validateTimeValues = () => {
     const late = parseInt(lateTime, 10);
@@ -81,7 +86,7 @@ export const AdminAttPost = ({
           />
         </S.InputSectionGap>
         <S.InputSectionGap $gap10>
-          <Calendar setDate={setDate} />
+          <Calendar setDate={handleDateChange} /> {/* 수정된 부분 */}
           <S.InputTime
             type="time"
             onChange={(e) => setTime(e.target.value)}

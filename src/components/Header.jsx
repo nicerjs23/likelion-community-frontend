@@ -49,7 +49,6 @@ const Content = styled.div`
 `;
 const Title = styled.div`
   display: flex;
-  font-family: ${({ theme }) =>
-    theme.fonts.PretendardSemiBold["font-family"]};
+  font-family: ${({ theme }) => theme.fonts.PretendardSemiBold["font-family"]};
   font-size: 20px;
 `;

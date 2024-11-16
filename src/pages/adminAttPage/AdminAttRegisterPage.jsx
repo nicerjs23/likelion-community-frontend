@@ -1,4 +1,3 @@
-//운영진 출석 등록페이지
 import * as S from "./AdminAttRegisterPage.styled";
 import { Header } from "@components/Header";
 import { AdminNameCard } from "@components/adminAttRegister/AdminNameCard";
@@ -8,9 +7,11 @@ import AdminAttCode from "@components/adminAttRegister/AdminAttCode";
 import { useState, useEffect } from "react";
 import axiosInstance from "@apis/axiosInstance";
 import useFetchCsrfToken from "@hooks/useFetchCsrfToken"; // 커스텀 훅 가져오기
+import { useCustomNavigate } from "@hooks/useCustomNavigate"; // 커스텀 네비게이션 훅 가져오기
 
 export const AdminAttRegisterPage = () => {
   useFetchCsrfToken();
+  const { goTo } = useCustomNavigate(); // 커스텀 네비게이션 훅 사용
 
   const [formData, setFormData] = useState({
     code: ["", "", "", ""],
@@ -78,27 +79,19 @@ export const AdminAttRegisterPage = () => {
     const formDataToSend = new FormData();
     const codeString = formData.code.join(""); // 배열을 문자열로 변환
 
-    formDataToSend.append("auth_code", codeString);
-    formDataToSend.append("track", formData.dropdownValue);
-    formDataToSend.append("title", formData.title);
     formDataToSend.append("date", formData.date);
     formDataToSend.append("time", formData.time);
-    formDataToSend.append("place", formData.place);
+    formDataToSend.append("title", formData.title);
+    formDataToSend.append("auth_code", codeString);
     formDataToSend.append("description", formData.body);
     if (formData.file) {
       // 파일이 있을 경우에만 추가
       formDataToSend.append("file", formData.file);
     }
+    formDataToSend.append("track", formData.dropdownValue);
     formDataToSend.append("late_threshold", formData.lateTime);
     formDataToSend.append("absent_threshold", formData.absentTime);
 
-    // 콘솔에 FormData 내용 출력 (백엔드 전송 코드로 대체)
-    console.log(
-      "Form data to send:",
-      Object.fromEntries(formDataToSend)
-    );
-
-    // 여기에 백엔드로 FormData 전송하는 코드 추가 (예: axios.post)
     try {
       // axios를 이용해 POST 요청 전송
       const response = await axiosInstance.post(
@@ -112,6 +105,7 @@ export const AdminAttRegisterPage = () => {
       );
       console.log("POST 성공:", response.data); // 성공 시 응답 출력
       alert("출석이 성공적으로 등록되었습니다!");
+      goTo("/adminAtt"); // 출석 등록이 성공하면 /adminAtt로 이동
     } catch (error) {
       if (error.response) {
         console.error("POST 실패:", error.response.data);

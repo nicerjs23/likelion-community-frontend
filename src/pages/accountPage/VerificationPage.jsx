@@ -14,6 +14,7 @@ import axiosInstance from "@apis/axiosInstance";
 export const VerificationPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [verificationPhoto, setVerificationPhoto] = useState(null); // isVerified 상태 제거
+  const [fileName, setFileName] = useState("");
   const { goTo } = useCustomNavigate();
   const location = useLocation();
   const formData = location.state;
@@ -29,6 +30,7 @@ export const VerificationPage = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setVerificationPhoto(file);
+    setFileName(file ? file.name : "");
     console.log("선택한 이미지 파일:", file); // 이미지 파일 확인
   };
 
@@ -37,6 +39,8 @@ export const VerificationPage = () => {
       alert("모든 필드를 채워주세요.");
       return;
     }
+    
+    setIsLoading(true);
 
     const finalFormData = new FormData();
     finalFormData.append("name", formData.name);
@@ -104,13 +108,17 @@ export const VerificationPage = () => {
                 accept="image/*"
                 onChange={handleFileChange}
               />
+              <S.FileName>
+                {fileName || "파일을 선택해주세요"}
+              </S.FileName>
             </S.InputImg>
           </S.InputBox>
+          <S.Confirm  onClick={handleSignupSubmit}>검사</S.Confirm>
         </S.InputWrap>
       </S.ContentWrap>
 
       <S.ContentWrap>
-        <Button btnName="회원가입" onClick={handleSignupSubmit} />
+        <Button btnName="회원가입" />
         <S.LogIn>
           <span className="text">이미 회원이신가요?</span>
           <span className="underline" onClick={() => goTo("/login")}>

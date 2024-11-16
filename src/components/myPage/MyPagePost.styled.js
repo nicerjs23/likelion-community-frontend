@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   padding: 15px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 5px;
   border-radius: 8px;
   background-color: #fff;
   width: 100%;
@@ -22,9 +22,6 @@ export const Left = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  div {
-    margin: 2px 0;
-  }
 `;
 
 export const PostTitle = styled.div`
@@ -39,11 +36,18 @@ export const Content = styled.div`
 `;
 
 export const Context = styled.div`
+  font-family: ${({ theme }) => theme.fonts.PretendardMedium["font-family"]};
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+export const ContentWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 `;
 
 export const PostImg = styled.img`
@@ -54,6 +58,10 @@ export const PostImg = styled.img`
 export const PostInfo = styled.div`
   display: flex;
   align-items: center;
+  font-family: ${({ theme }) => theme.fonts.PretendardRegular["font-family"]};
+  div {
+    margin-right: 2px;
+  }
 `;
 
 export const PostIcon = styled.img`
@@ -64,5 +72,4 @@ export const PostIcon = styled.img`
 
 export const CommentCount = styled.div`
   color: #ff7710;
-  margin-right: 2px;
 `;

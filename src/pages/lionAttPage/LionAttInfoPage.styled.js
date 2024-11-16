@@ -59,8 +59,8 @@ export const AttBox = styled.div`
   width: 90px;
   height: 90px;
   border-radius: 32px;
-  background-color: ${(props) => props.bgColor};
-  color: ${(props) => props.fontColor};
+  background-color: ${(props) => props.$bgColor};
+  color: ${(props) => props.$fontColor};
   font-size: 22px;
   font-family: ${({ theme }) =>
     theme.fonts.PretendardSemiBold["font-family"]};
@@ -69,7 +69,7 @@ export const AttBox = styled.div`
 export const AttBoxText = styled.div`
   display: flex;
   justify-content: center;
-  color: ${(props) => props.textColor};
+  color: ${(props) => props.$textColor};
   font-size: 16px;
   font-family: ${({ theme }) =>
     theme.fonts.PretendardSemiBold["font-family"]};

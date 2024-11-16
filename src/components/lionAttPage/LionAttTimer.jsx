@@ -1,14 +1,26 @@
+// 타이머 컴포넌트
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 
+// 남은 시간을 계산하는 함수
 const calculateRemainingTime = (
   sessionDate,
   sessionTime,
   absentTime
 ) => {
-  const sessionDateTime = new Date(
-    `${sessionDate}T${sessionTime}:00`
-  );
+  if (
+    !sessionDate ||
+    !sessionTime ||
+    typeof absentTime !== "number"
+  ) {
+    return { minutes: 0, seconds: 0 };
+  }
+
+  const sessionDateTime = new Date(`${sessionDate}T${sessionTime}`);
+  if (isNaN(sessionDateTime.getTime())) {
+    return { minutes: 0, seconds: 0 };
+  }
+
   const absenceTime = new Date(
     sessionDateTime.getTime() + absentTime * 60000
   );
@@ -18,14 +30,15 @@ const calculateRemainingTime = (
   const minutes = Math.floor(remainingTime / 60000);
   const seconds = Math.floor((remainingTime % 60000) / 1000);
 
-  return { minutes, seconds };
+  return { minutes, seconds, isActive: remainingTime > 0 };
 };
 
-const LionAttInfoPage = ({
+const LionAttTimer = ({
   sessionDate,
   sessionTime,
   lateTime,
   absentTime,
+  setIsTimerActive,
 }) => {
   const [timeLeft, setTimeLeft] = useState(
     calculateRemainingTime(sessionDate, sessionTime, absentTime)
@@ -33,15 +46,18 @@ const LionAttInfoPage = ({
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(
-        calculateRemainingTime(sessionDate, sessionTime, absentTime)
+      const newTimeLeft = calculateRemainingTime(
+        sessionDate,
+        sessionTime,
+        absentTime
       );
+      setTimeLeft(newTimeLeft);
+      setIsTimerActive(newTimeLeft.isActive); // 타이머 활성화 여부 설정
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [sessionDate, sessionTime, absentTime]);
+  }, [sessionDate, sessionTime, absentTime, setIsTimerActive]);
 
-  // 남은 시간이 지각 시간보다 적을 경우 색상을 빨간색으로 설정
   const isLate = timeLeft.minutes < lateTime;
 
   return (
@@ -52,7 +68,7 @@ const LionAttInfoPage = ({
   );
 };
 
-export default LionAttInfoPage;
+export default LionAttTimer;
 
 const AttTimer = styled.div`
   display: flex;

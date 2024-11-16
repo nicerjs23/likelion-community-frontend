@@ -1,110 +1,134 @@
 //아기사자 출석페이지
-//운영진 출석페이지
 import * as S from "./LionAttPage.styled";
 import { Header } from "@components/Header";
-import { Dropdown } from "@components/adminAtt/Dropdown";
-import adminPen from "@assets/icons/adminPen.svg";
+
 import { AttCard } from "@components/adminAtt/AttCard";
 import { LionAttCard } from "@components/lionAttPage/LionAttCard";
 import { useCustomNavigate } from "@hooks/useCustomNavigate";
-import axiosInstance from "@apis/axiosInstance"; // axiosInstance 가져오기
+import axiosInstance from "@apis/axiosInstance";
 import { useEffect, useState } from "react";
 
 export const LionAttPage = () => {
   const { goTo } = useCustomNavigate();
-  const [attendances, setAttendances] = useState([]);
-  const [error, setError] = useState(null);
+  const [attendanceRecords, setAttendanceRecords] = useState([]); // 출석 데이터를 저장하는 상태
+  const [userAttendance, setUserAttendance] = useState([]); // 유저 출석 데이터를 저장하는 상태
+  const [statusCounts, setStatusCounts] = useState({
+    present: 0,
+    late: 0,
+    absent: 0,
+  }); // 상태 카운트를 저장하는 상태
+  const [fetchError, setFetchError] = useState(null); // 오류 메시지를 저장하는 상태
 
-  // 출석 목록 데이터를 가져오는 함수
   useEffect(() => {
-    const fetchAttendances = async () => {
+    const fetchAttendanceRecords = async () => {
       try {
-        const response = await axiosInstance.get("/attendance/main/");
-        setAttendances(response.data); // 성공적으로 데이터를 받아온 경우 상태에 설정
+        const response = await axiosInstance.get(
+          "/attendance/myattendance/"
+        );
+        console.log("전체데이터:", response.data);
+        setAttendanceRecords(response.data.all_attendances || []);
+        setUserAttendance(response.data.user_attendance || []);
+        // 한국어 변수명을 영어로 매핑
+        const status = response.data.status_count;
+        if (status) {
+          setStatusCounts({
+            present: status["출석"] || 0, // '출석'을 'present'로 매핑
+            late: status["지각"] || 0, // '지각'을 'late'로 매핑
+            absent: status["결석"] || 0, // '결석'을 'absent'로 매핑
+          });
+        } else {
+          setStatusCounts({ present: 0, late: 0, absent: 0 });
+        }
       } catch (err) {
-        setError(
+        setFetchError(
           err.response?.data?.detail || "오류가 발생했습니다."
         );
       }
     };
 
-    fetchAttendances();
+    fetchAttendanceRecords();
   }, []);
-  console.log(attendances);
-  // isOpen 상태를 계산하는 함수 받아온date날짜에 time을기준으로 isopen이1이되고 지각시간이지나면 0이됨
+  // userAttendance에서 해당 record의 출석 상태를 찾는 함수
+  const getStatusForRecord = (recordId) => {
+    const matchedAttendance = userAttendance.find(
+      (item) => item.attendance === recordId
+    );
+    return matchedAttendance ? matchedAttendance.status : null; // 출석 상태 반환
+  };
+
   const calculateIsOpen = (date, time, absentThreshold) => {
     const openTime = new Date(`${date}T${time}`);
     const closeTime = new Date(
       openTime.getTime() + absentThreshold * 60000
-    ); // absentThreshold를 분으로 처리
+    );
     const currentTime = new Date();
 
     return currentTime >= openTime && currentTime < closeTime ? 1 : 0;
   };
+
   return (
     <S.Wrapper>
       <Header title="출석" />
-      {/* 요소들 묶어둔 콘텐츠 태그 */}
       <S.Content>
-        {/* 액션바들 묶음 */}
+        <S.LionAttScore>
+          <S.ScoreContent>
+            <S.ScoreText>
+              <div>출석</div>
+              <div className="score">{statusCounts.present}회</div>
+            </S.ScoreText>
+            <S.ScoreText>
+              <div>지각</div>
+              <div className="score">{statusCounts.late}회</div>
+            </S.ScoreText>
+            <S.ScoreText>
+              <div>결석</div>
+              <div className="score">{statusCounts.absent}회</div>
+            </S.ScoreText>
+          </S.ScoreContent>
+        </S.LionAttScore>
 
         <S.CardWrapper>
-          {attendances.length > 0 ? (
-            attendances.map((attendance) => (
-              <AttCard
-                key={attendance.id} // 고유한 key 값 사용
-                isOpen={calculateIsOpen(
-                  attendance.date,
-                  attendance.time,
-                  attendance.absent_threshold
-                )}
-                onClick={() =>
-                  goTo(`/adminAttManage/${attendance.id}`)
-                }
-                absentThreshold={attendance.absent_threshold}
-                date={attendance.date}
-                description={attendance.description}
-                file={attendance.file}
-                lateThreshold={attendance.late_threshold}
-                place={attendance.place}
-                time={attendance.time}
-                title={attendance.title}
-                track={attendance.track}
-              />
-            ))
+          {Array.isArray(attendanceRecords) &&
+          attendanceRecords.length > 0 ? (
+            attendanceRecords.map((record) => {
+              const isOpen = calculateIsOpen(
+                record.date,
+                record.time,
+                record.absent_threshold
+              );
+              const status = getStatusForRecord(record.id); // 출석 상태 가져오기
+              return isOpen === 1 ? (
+                <AttCard
+                  key={record.id}
+                  isOpen={isOpen}
+                  onClick={() => goTo(`/lionAttInfo/${record.id}`)}
+                  absentThreshold={record.absent_threshold}
+                  date={record.date}
+                  description={record.description}
+                  file={record.file}
+                  lateThreshold={record.late_threshold}
+                  place={record.place}
+                  time={record.time}
+                  title={record.title}
+                  track={record.track}
+                />
+              ) : (
+                <LionAttCard
+                  key={record.id}
+                  isOpen={isOpen}
+                  onClick={() => goTo(`/lionAttInfo/${record.id}`)}
+                  date={record.date}
+                  place={record.place}
+                  time={record.time}
+                  title={record.title}
+                  track={record.track}
+                  status={status} // 출석 상태 전달
+                />
+              );
+            })
           ) : (
             <p>출석 목록이 없습니다.</p>
           )}
-          <LionAttCard
-            isOpen="0"
-            onClick
-            date="2024-11-15"
-            place="신공"
-            time="16:30"
-            title="제목테스트제목테스트제목테스트제목테스트"
-            track="프론트"
-            status="출석"
-          />
-          <LionAttCard
-            isOpen="0"
-            onClick
-            date="2024-11-15"
-            place="신공"
-            time="16:30"
-            title="제목테스트제목테스트제목테스트제목테스트"
-            track="프론트"
-            status="지각"
-          />
-          <LionAttCard
-            isOpen="0"
-            onClick
-            date="2024-11-15"
-            place="신공"
-            time="16:30"
-            title="제목테스트제목테스트제목테스트제목테스트"
-            track="프론트"
-            status="결석"
-          />
         </S.CardWrapper>
       </S.Content>
     </S.Wrapper>

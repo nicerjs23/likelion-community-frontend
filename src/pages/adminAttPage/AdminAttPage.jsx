@@ -1,4 +1,5 @@
 //운영진 출석페이지
+// 운영진 출석 페이지
 import * as S from "./AdminAttPage.styled";
 import { Header } from "@components/Header";
 import { Dropdown } from "@components/adminAtt/Dropdown";
@@ -23,10 +24,12 @@ export const AdminAttPage = () => {
       try {
         // API 호출
         const response = await axiosInstance.get("/attendance/main/");
-        // 성공적으로 데이터를 받아온 경우 상태에 설정
-        setAttendances(response.data);
+        console.log("전체데이터:", response.data);
+
+        // 수정된 데이터 구조에 맞게 설정
+        const attendanceData = response.data.attendances || [];
+        setAttendances(attendanceData);
       } catch (err) {
-        // 오류 발생 시 에러 메시지 설정
         setError(
           err.response?.data?.detail ||
             "출석 목록을 불러오는 데 실패했습니다."
@@ -35,10 +38,9 @@ export const AdminAttPage = () => {
     };
 
     fetchAttendances();
-    console.log(attendances);
   }, []); // 컴포넌트가 마운트될 때 한번 실행
 
-  // isOpen 상태를 계산하는 함수 받아온date날짜에 time을기준으로 isopen이1이되고 지각시간이지나면 0이됨
+  // isOpen 상태를 계산하는 함수
   const calculateIsOpen = (date, time, absentThreshold) => {
     const openTime = new Date(`${date}T${time}`);
     const closeTime = new Date(
@@ -48,6 +50,7 @@ export const AdminAttPage = () => {
 
     return currentTime >= openTime && currentTime < closeTime ? 1 : 0;
   };
+
   return (
     <S.Wrapper>
       <Header title="출석" />
@@ -55,7 +58,6 @@ export const AdminAttPage = () => {
       <S.Content>
         {/* 액션바들 묶음 */}
         <S.ActionBar>
-          <Dropdown props={filterData} />
           <S.WriteBtn onClick={() => goTo("/adminAttRegister")}>
             글쓰기
             <S.AdminPenIcon src={adminPen} alt="penIcon" />

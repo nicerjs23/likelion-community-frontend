@@ -5,12 +5,17 @@ import { Board } from "@components/Board";
 import { Footer } from "@components/Footer";
 import attendance from "@assets/icons/attendance.svg";
 import notice from "@assets/icons/notice.svg";
-import community from "@assets/icons/community.svg";
 import { useCustomNavigate } from "@hooks/useCustomNavigate";
 import axiosInstance from "@apis/axiosInstance"; // axiosInstance 가져오기
 import { useState, useEffect } from "react";
+import { Back } from "@components/schBoard/Back";
+import useUserVerification from "@hooks/useUserVerification";
 
 export const SchMainPage = () => {
+  const verification = useUserVerification();
+  console.log("지금 인증 되었나요? : ", verification);
+  console.log("같은가요?", verification === "approved");
+
   const { goTo } = useCustomNavigate();
   const [isStaff, setIsStaff] = useState(false); //운영진유무 상태관리
   // API 호출 및 is_staff 값 가져오기
@@ -27,6 +32,7 @@ export const SchMainPage = () => {
     fetchIsStaff();
   }, []);
   console.log("운영진이니?:", isStaff);
+
   // 예시 데이터
   const posts1 = [
     { time: "6", user: "익명", content: "내용입니다내용입니다" },
@@ -68,6 +74,7 @@ export const SchMainPage = () => {
         />
       </S.Boards>
       <Footer />
+      {verification !== "approved" && <Back />}
     </S.Wrapper>
   );
 };

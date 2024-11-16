@@ -48,10 +48,14 @@ import { MyPostPage } from "@pages/myPage/MyPostPage";
 import { MyCommentPage } from "@pages/myPage/MyCommentPage";
 import { MyScrapPage } from "@pages/myPage/MyScrapPage";
 import { LionAttPage } from "@pages/lionAttPage/LionAttPage";
+
+import { ErrorPage } from "@pages/errorPage/ErrorPage";
+
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <DefaultLayout />,
+    errorElement: <ErrorPage />, // 잘못된 경로나 오류가 발생했을 때 보여줄 페이지
     children: [
       { path: "", element: <WelcomePage /> },
       { path: "main", element: <MainPage /> },
@@ -60,15 +64,15 @@ export const router = createBrowserRouter([
       { path: "adminAttRegister", element: <AdminAttRegisterPage /> },
       { path: "adminAttManage/:id", element: <AdminAttManagePage /> },
       { path: "lionAtt", element: <LionAttPage /> },
-      { path: "lionAttNum", element: <LionAttNum /> },
-      { path: "lionAttInfo", element: <LionAttInfoPage /> },
+      { path: "lionAttNum/:id", element: <LionAttNum /> },
+      { path: "lionAttInfo/:id", element: <LionAttInfoPage /> },
       { path: "login", element: <LoginPage /> },
       { path: "signup", element: <SignupPage /> },
       { path: "kakaoSignup", element: <KakaoSignupPage /> },
       { path: "verification", element: <VerificationPage /> },
       { path: "loading", element: <Loading /> },
       { path: "chatList", element: <ChatListPage /> },
-      { path: "chat", element: <ChatPage /> },
+      { path: "chat/:chatroom_id", element: <ChatPage /> },
       { path: "bePostingPage", element: <BePostingPage /> },
       { path: "defaultPostingPage", element: <DefaultPostingPage /> },
       { path: "fePostingPage", element: <FePostingPage /> },
@@ -100,7 +104,7 @@ export const router = createBrowserRouter([
       { path: "notiPostPage/:id", element: <NotiPostPage /> },
       { path: "pmPostPage/:id", element: <PmPostPage /> },
       { path: "qnaPostPage/:id", element: <QnAPostPage /> },
-      { path: "schDefaultPostPage", element: <SchDefaultPostPage /> },
+      { path: "schDefaultPostPage/:id", element: <SchDefaultPostPage /> },
       { path: "myPost", element: <MyPostPage /> },
       { path: "myComment", element: <MyCommentPage /> },
       { path: "myScrap", element: <MyScrapPage /> },

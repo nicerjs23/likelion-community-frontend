@@ -26,11 +26,13 @@ export const MyPagePost = ({ board_title, title, body, images, comments_count, t
       <S.BoardTitle>#{board_title}</S.BoardTitle>
       <S.Content>
         <S.Left>
-          <S.PostTitle>{title}</S.PostTitle>
-          <S.Context>{body}</S.Context>
+          <S.ContentWrap>
+            <S.PostTitle>{title}</S.PostTitle>
+            <S.Context>{body}</S.Context>
+          </S.ContentWrap>
           <S.PostInfo>
             <S.PostIcon src={myComment} />
-            <S.CommentCount>{comments_count}</S.CommentCount>| {elapseTime} | {user}
+            <S.CommentCount>{comments_count}</S.CommentCount> | {elapseTime} | {user}
           </S.PostInfo>
         </S.Left>
         {image && <S.PostImg src={image} alt="게시글 이미지" />}

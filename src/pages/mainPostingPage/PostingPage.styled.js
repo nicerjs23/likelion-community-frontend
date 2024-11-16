@@ -8,7 +8,7 @@ export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 800px;
+  /* height: 800px; */
   align-content: space-between;
 `;
 

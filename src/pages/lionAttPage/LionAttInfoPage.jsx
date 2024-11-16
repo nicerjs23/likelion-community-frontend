@@ -1,24 +1,55 @@
 // 아기사자 출석 정보 확인 페이지
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@components/Header";
 import * as S from "./LionAttInfoPage.styled";
 import LionAttInfo from "@components/lionAttPage/LionAttInfo";
 import LionAttTimer from "@components/lionAttPage/LionAttTimer";
 import { useCustomNavigate } from "@hooks/useCustomNavigate";
+import { useParams } from "react-router-dom";
+import axiosInstance from "@apis/axiosInstance";
+import useFetchCsrfToken from "@hooks/useFetchCsrfToken";
+
 export const LionAttInfoPage = () => {
-  const infoData = {
-    id: "2",
-    date: "2024-11-07",
-    time: "18:30",
-    place: "신공학과 5147",
-    track: "백엔드",
-    title: "9주차 세션 쉽게 배포하기",
-    description:
-      "늦지 않게 와주세요~ 일찍 오신분들은 5143에서 대기해주시면 됩니다.",
-    file: "https://example.com/9주차배포자료.pdf",
-    status: "",
-  };
-  const { goTo } = useCustomNavigate();
+  useFetchCsrfToken();
+
+  const { id } = useParams();
+  const { goToWithId } = useCustomNavigate();
+  const [infoData, setInfoData] = useState(null);
+  const [status, setStatus] = useState("");
+  const [isTimerActive, setIsTimerActive] = useState(false);
+
+  useEffect(() => {
+    const fetchAttendanceData = async () => {
+      try {
+        const response = await axiosInstance.get(
+          "/attendance/myattendance/"
+        );
+        const allAttendances = response.data.all_attendances || [];
+        const userAttendances = response.data.user_attendance || [];
+
+        const attendance = allAttendances.find(
+          (item) => item.id === parseInt(id, 10)
+        );
+        if (attendance) {
+          setInfoData(attendance);
+          const userAttendance = userAttendances.find(
+            (item) => item.attendance === attendance.id
+          );
+          setStatus(userAttendance ? userAttendance.status : "");
+        }
+        console.log("id로가져온값:", attendance);
+      } catch (error) {
+        console.error("데이터 가져오기 실패:", error);
+      }
+    };
+
+    fetchAttendanceData();
+  }, [id]);
+
+  if (!infoData) {
+    return <p>데이터를 불러오는 중입니다...</p>;
+  }
+
   return (
     <S.Wrapper>
       <Header title="출석 정보" />
@@ -39,19 +70,15 @@ export const LionAttInfoPage = () => {
           </S.AttScoreTitle>
           <S.AttScoreBody>
             <S.AttBox
-              bgColor={
-                infoData.status === "출석"
+              $bgColor={
+                status === "출석"
                   ? "rgba(162, 255, 154, 0.50)"
                   : "none"
               }
-              fontColor={
-                infoData.status === "출석" ? "#51804D" : "#000000"
-              }
+              $fontColor={status === "출석" ? "#51804D" : "#000000"}
             >
               <S.AttBoxText
-                textColor={
-                  infoData.status === "출석" ? "#8CBB88" : "#767676"
-                }
+                $textColor={status === "출석" ? "#8CBB88" : "#767676"}
               >
                 출석
               </S.AttBoxText>
@@ -59,19 +86,15 @@ export const LionAttInfoPage = () => {
             </S.AttBox>
 
             <S.AttBox
-              bgColor={
-                infoData.status === "지각"
+              $bgColor={
+                status === "지각"
                   ? "rgba(255, 243, 154, 0.50)"
                   : "none"
               }
-              fontColor={
-                infoData.status === "지각" ? "#80794D" : "#000000"
-              }
+              $fontColor={status === "지각" ? "#80794D" : "#000000"}
             >
               <S.AttBoxText
-                textColor={
-                  infoData.status === "지각" ? "#BBB488" : "#767676"
-                }
+                $textColor={status === "지각" ? "#BBB488" : "#767676"}
               >
                 지각
               </S.AttBoxText>
@@ -79,19 +102,15 @@ export const LionAttInfoPage = () => {
             </S.AttBox>
 
             <S.AttBox
-              bgColor={
-                infoData.status === "결석"
+              $bgColor={
+                status === "결석"
                   ? "rgba(255, 154, 154, 0.50)"
                   : "none"
               }
-              fontColor={
-                infoData.status === "결석" ? "#804D4D" : "#000000"
-              }
+              $fontColor={status === "결석" ? "#804D4D" : "#000000"}
             >
               <S.AttBoxText
-                textColor={
-                  infoData.status === "결석" ? "#BB8888" : "#767676"
-                }
+                $textColor={status === "결석" ? "#BB8888" : "#767676"}
               >
                 결석
               </S.AttBoxText>
@@ -100,17 +119,25 @@ export const LionAttInfoPage = () => {
           </S.AttScoreBody>
         </S.AttScore>
         <LionAttTimer
-          sessionDate="2024-11-15"
-          sessionTime="17:53"
-          lateTime={1}
-          absentTime={2}
+          sessionDate={infoData.date}
+          sessionTime={infoData.time}
+          lateTime={infoData?.late_threshold}
+          absentTime={infoData?.absent_threshold}
+          setIsTimerActive={setIsTimerActive}
         />
-        <S.AttSubmitBtn onClick={() => goTo("/lionAttNum")}>
-          출석하러 가기
-        </S.AttSubmitBtn>
+        {isTimerActive ? (
+          <S.AttSubmitBtn
+            onClick={() => goToWithId("/lionAttNum", id)}
+          >
+            출석하러 가기
+          </S.AttSubmitBtn>
+        ) : (
+          <S.AttSubmitBtn disabled>
+            출석 시간이 아닙니다
+          </S.AttSubmitBtn>
+        )}
       </S.Content>
     </S.Wrapper>
   );
 };
-
 export default LionAttInfoPage;

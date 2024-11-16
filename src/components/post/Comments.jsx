@@ -1,19 +1,36 @@
-// 댓글
+// Comments.js
+
 import * as S from "./Content.styled";
 import styled from "styled-components";
 import profileLion from "@assets/icons/profileLion.svg";
 
-export const Comments = () => {
+export const Comments = ({ comment }) => {
+  const { anonymous, content, time, writer } = comment;
+
+  // 작성자 이름 결정
+  const name = anonymous
+    ? "익명"
+    : writer.nickname || "익명";
+
+  // 시간 포맷팅
+  const date = new Date(time).toLocaleString("ko-KR", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
   return (
     <Comment>
       <S.Writter>
         <S.ProfileImg src={profileLion}></S.ProfileImg>
         <S.Text>
-          <p>별명</p>
-          <p>10/28 14:26</p>
+          <p>{name}</p>
+          <p>{date}</p>
         </S.Text>
       </S.Writter>
-      <S.Content>저요! 제가 하겠습니다!!</S.Content>
+      <S.Content>{content}</S.Content>
     </Comment>
   );
 };

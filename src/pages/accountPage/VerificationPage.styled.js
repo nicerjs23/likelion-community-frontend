@@ -74,7 +74,7 @@ export const InputImg = styled.label`
   cursor: pointer;
   display: flex;
   height: 100%;
-  padding: 20px 20px 20px 160px;
+  padding: 18px 20px;
   border-radius: 20px;
   background-color: #ffffff;
 
@@ -120,4 +120,16 @@ export const LogIn = styled.div`
     text-decoration-line: underline;
     cursor: pointer;
   }
+`;
+
+export const FileName = styled.span`
+  font-family: ${({ theme }) =>
+    theme.fonts.PretendardMedium["font-family"]};
+  font-size: 14px;
+  color: #333;
+  margin-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px; /* 파일명이 너무 길 때 잘리도록 최대 너비 설정 */
 `;

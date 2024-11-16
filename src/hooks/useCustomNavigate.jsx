@@ -9,8 +9,11 @@ export const useCustomNavigate = () => {
   const goBack = () => {
     navigate(-1); //뒤로가기, +1은 앞으로가기
   };
+  const goToWithId = (path, id) => {
+    navigate(`${path}/${id}`);
+  };
 
-  return { goTo, goBack };
+  return { goTo, goBack, goToWithId };
 };
 
 /* 훅 사용법! 참고하세요~

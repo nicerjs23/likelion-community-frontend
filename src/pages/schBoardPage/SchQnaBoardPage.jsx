@@ -1,3 +1,5 @@
+// 학교 질문게시판 목록 페이지
+
 import React from 'react'
 import * as S from './SchQnaBoardPage.styled'
 import { Header } from '@components/Header'
@@ -5,62 +7,39 @@ import { Dropdown } from '@components/adminAtt/Dropdown'
 import { Board as SchBoard } from '@components/schBoard/Board'
 import { WriteBtn } from '@components/schBoard/WriteBtn'
 import { Link } from 'react-router-dom'
+import axiosInstance from '@apis/axiosInstance'
+import { useState, useEffect } from 'react'
 
 export const SchQnaBoardPage = () => {
+    const [posts, setPost] = useState([]);
 
-    const filterData = {
-        data: ["트랙선택", "프론트엔드", "백엔드", "기획/디자인"],
-    };
+  // 게시물 가져오기
+  const fetchPost = async () => {
+    try {
+      const response = await axiosInstance.get('/post/questionboard/');
+      console.log("학교 질문 게시판 데이터:", response.data);
+      setPost(response.data);
+    } catch (error) {
+      console.log("error:", error);
+      setError("게시물을 불러오는 데 실패했습니다.");
+    }
+  };
 
-    const Board= [
-        {
-            title: '🌍지구🌍를 사랑하고 보호하고 싶다...',
-            context: '지구를 사랑하고 보호하고 싶다면, 우리 팀 지구를 구해라 팀으로 오시는걸 추천 드립니다람쥐...'
-            
-        }
-    ]
+  useEffect(() => {
+    fetchPost();
+  }, []);
 
     return (
         <S.Wrapper>
             <Header title='질문 게시판' />
             <S.Content>
-                <Dropdown props={filterData}/>
+              {posts.map((post, index) => (
                 <SchBoard 
-                    title={Board[0].title}
-                    context={Board[0].context}
+                  key={index}
+                  title={post.title}
+                  body={post.body}
                 />
-                <SchBoard 
-                    title={Board[0].title}
-                    context={Board[0].context}
-                />
-                <SchBoard 
-                    title={Board[0].title}
-                    context={Board[0].context}
-                />
-                <SchBoard 
-                    title={Board[0].title}
-                    context={Board[0].context}
-                />
-                <SchBoard 
-                    title={Board[0].title}
-                    context={Board[0].context}
-                />
-                <SchBoard 
-                    title={Board[0].title}
-                    context={Board[0].context}
-                />
-                <SchBoard 
-                    title={Board[0].title}
-                    context={Board[0].context}
-                />
-                <SchBoard 
-                    title={Board[0].title}
-                    context={Board[0].context}
-                />
-                <SchBoard 
-                    title={Board[0].title}
-                    context={Board[0].context}
-                />
+              ))}
             </S.Content>
             <Link to='/'>
                 <WriteBtn />

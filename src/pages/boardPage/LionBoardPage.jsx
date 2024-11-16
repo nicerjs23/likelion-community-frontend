@@ -28,7 +28,7 @@ export const LionBoardPage = () => {
 
     return (
         <S.Wrapper>
-            <Header title="아기사자 게시판"/>
+            <Header title="아기사자게시판"/>
             <S.Content>
                 {posts.filter(post => post.board_title === '아기사자게시판').map((post, id) => (
                     <Link to={`/lionPostPage/${post.id}`} style={{"width":"100%"}}>

@@ -1,4 +1,4 @@
-// 질문 게시판 글 상세 페이지
+// 학교 커뮤니티의 질문 게시판 글 상세 페이지
 
 import * as S from "../mainPostPage/PostPage.styled";
 import { Header } from "@components/Header";

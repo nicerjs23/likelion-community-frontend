@@ -26,7 +26,7 @@ export const Content = styled.div`
 export const ActionBar = styled.div`
   display: flex;
   width: 100%;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 16px;
 `;
 
