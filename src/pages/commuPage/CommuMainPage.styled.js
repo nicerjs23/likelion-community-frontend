@@ -64,8 +64,8 @@ export const More = styled.div`
 
 export const Context = styled.div`
     font-family: ${({ theme }) =>
-    theme.fonts.PretendardBold["font-family"]};
-    font-size: 10px;
+    theme.fonts.PretendardMedium["font-family"]};
+    font-size: 12px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

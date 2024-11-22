@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { MainHeader } from "@components/MainHeader";
 import { Footer } from '@components/Footer'
 import logo from '@assets/images/whiteLogo.svg'
-import sliderImg from '@assets/images/slider5.png'
+import sliderImg from '@assets/images/slider2.png'
 import { PopularPost } from '@components/mainPage/PopularPost';
 import { PopularData } from "../../constant/mainPage/popularPostData";
 import { Swiper, SwiperSlide } from 'swiper/react'

@@ -38,7 +38,7 @@ export const NotiBoardPage = () => {
                             body={post.body}
                             time={post.time}
                             anonymous={post.anonymous}
-                            writer={post.writer.name}
+                            writer={post.writer.nickname}
                             comments_count={post.comments_count}
                             scraps_count={post.scraps_count}
                             images={post.images}

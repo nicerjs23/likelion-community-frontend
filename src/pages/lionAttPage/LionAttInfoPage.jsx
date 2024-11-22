@@ -27,9 +27,18 @@ export const LionAttInfoPage = () => {
         const allAttendances = response.data.all_attendances || [];
         const userAttendances = response.data.user_attendance || [];
 
-        const attendance = allAttendances.find(
+        // allAttendances를 date와 time 기준으로 내림차순 정렬
+        const sortedAttendances = allAttendances.sort((a, b) => {
+          const dateTimeA = new Date(`${a.date}T${a.time}`);
+          const dateTimeB = new Date(`${b.date}T${b.time}`);
+          return dateTimeB - dateTimeA; // 내림차순 정렬
+        });
+
+        // sortedAttendances에서 attendance 찾기
+        const attendance = sortedAttendances.find(
           (item) => item.id === parseInt(id, 10)
         );
+
         if (attendance) {
           setInfoData(attendance);
           const userAttendance = userAttendances.find(
@@ -37,7 +46,7 @@ export const LionAttInfoPage = () => {
           );
           setStatus(userAttendance ? userAttendance.status : "");
         }
-        console.log("id로가져온값:", attendance);
+        console.log("정렬된 출석 데이터:", sortedAttendances);
       } catch (error) {
         console.error("데이터 가져오기 실패:", error);
       }
@@ -57,7 +66,7 @@ export const LionAttInfoPage = () => {
         <LionAttInfo
           date={infoData.date}
           time={infoData.time}
-          place={infoData.place}
+          place={infoData.place || "장소 정보 없음"}
           track={infoData.track}
           title={infoData.title}
           description={infoData.description}

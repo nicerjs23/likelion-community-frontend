@@ -91,6 +91,7 @@ export const AdminAttRegisterPage = () => {
     formDataToSend.append("track", formData.dropdownValue);
     formDataToSend.append("late_threshold", formData.lateTime);
     formDataToSend.append("absent_threshold", formData.absentTime);
+    formDataToSend.append("place", formData.place);
 
     try {
       // axios를 이용해 POST 요청 전송

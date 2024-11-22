@@ -2,25 +2,21 @@ import React from "react";
 import styled from "styled-components";
 import AttStatusModal from "@components/adminAttManage/AttStatusModal";
 import { useState } from "react";
-const AttCard = ({
-  name,
-  details,
-  status: initialStatus,
-  onStatusChange,
-}) => {
-  const [status, setStatus] = useState(initialStatus);
+
+const AttCard = ({ name, details, status, onStatusChange }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedStatus, setSelectedStatus] = useState(initialStatus);
+  const [selectedStatus, setSelectedStatus] = useState(status);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
   // 모달에서 상태를 변경 (확인 버튼 누르기 전)
   const handleStatusClick = (newStatus) => {
     setSelectedStatus(newStatus);
   };
-  // 확인 버튼 클릭 시 상태를 변경하고 상위 컴포넌트에 전달
+
+  // 확인 버튼 클릭 시 상태를 상위 컴포넌트에 전달
   const handleConfirm = () => {
-    setStatus(selectedStatus); // 내부 상태 업데이트
     onStatusChange(selectedStatus); // 상위 컴포넌트에 변경 사항 전달
     closeModal(); // 모달 닫기
   };
@@ -32,7 +28,7 @@ const AttCard = ({
           <Profile>
             <ProfileImg />
             <Info>
-              <Name>{name}</Name>|<Details> {details}</Details>
+              <Name>{name}</Name>|<Details>{details}</Details>
             </Info>
           </Profile>
           <Status $status={status} onClick={openModal}>
@@ -52,6 +48,7 @@ const AttCard = ({
 };
 
 export default AttCard;
+
 const CardWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -62,11 +59,13 @@ const CardWrapper = styled.div`
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
+
 const Content = styled.div`
   display: flex;
   width: 93.75%;
   justify-content: space-between;
 `;
+
 const Profile = styled.div`
   display: flex;
   align-items: center;
@@ -93,16 +92,12 @@ const Name = styled.div`
   font-weight: bold;
   color: #111111;
   font-size: 16px;
-  font-family: ${({ theme }) =>
-    theme.fonts.PretendardSemiBold["font-family"]};
 `;
 
 const Details = styled.div`
   display: flex;
   margin-left: 3px;
   font-size: 14px;
-  font-family: ${({ theme }) =>
-    theme.fonts.PretendardSemiBold["font-family"]};
   color: #767676;
 `;
 
@@ -114,8 +109,6 @@ const Status = styled.button`
   height: 37px;
   border-radius: 32px;
   font-size: 15px;
-  font-family: ${({ theme }) =>
-    theme.fonts.PretendardSemiBold["font-family"]};
   background-color: ${({ $status }) =>
     $status === "출석"
       ? "#A2FF9A"

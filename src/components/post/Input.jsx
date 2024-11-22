@@ -25,13 +25,13 @@ export const Input = ({ postId, onAddComment }) => {
         board: postId,
       };
 
-     
+
       const response = await axiosInstance.post(
         "/post/maincomment/",
         requestBody,
         {
           headers: {
-            "Content-Type": "application/json", // FormData 전송 시 헤더 설정
+            "Content-Type": "application/json",
           },
         }
       );
