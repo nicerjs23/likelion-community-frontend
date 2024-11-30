@@ -1,3 +1,5 @@
+// 백엔드 게시판 글 작성 페이지
+
 import * as S from "./PostingPage.styled";
 import { Header } from "@components/Header";
 import { PostingBox } from "@components/post/PostingBox";
@@ -50,7 +52,7 @@ export const DefaultPostingPage = () => {
         }
       });
     }
-
+    
     try {
       if (isEdit) {
         await axiosInstance.put(`/post/mainboard/${id}/`, formData, {

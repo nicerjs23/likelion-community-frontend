@@ -21,7 +21,10 @@ export const Comments = ({ comment }) => {
   return (
     <Comment>
       <S.Writter>
-        <S.ProfileImg src={profileLion}></S.ProfileImg>
+        <S.ProfileImg
+          src={!anonymous && writer.profile_image ? writer.profile_image : profileLion}
+          alt="profile img"
+        />
         <S.Text>
           <p>{name}</p>
           <p>{date}</p>

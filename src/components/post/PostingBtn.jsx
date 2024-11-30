@@ -17,4 +17,5 @@ export const Button = styled.button`
   bottom: -40px;
   transform: translateX(-50%);
   left: 50%;
+  cursor: pointer;
 `;

@@ -35,7 +35,6 @@ export const SchNotiBoardPage = () => {
       setPost(response.data);
     } catch (error) {
       console.log("error:", error);
-      setError("게시물을 불러오는 데 실패했습니다.");
     }
   };
 

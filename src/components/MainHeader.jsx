@@ -34,7 +34,6 @@ export const MainHeader = ({ title }) => {
         </Left>
         <Right>
           <Link to="/myPage">
-            {/* <Profile src="" alt=" profile img" /> */}
             <Profile src={profileImage || defaultProfile} alt="profile img" />
           </Link>
         </Right>

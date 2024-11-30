@@ -22,7 +22,7 @@ export const User = styled.div`
 export const ProfileImg = styled.img`
   width: 35px;
   height: 35px;
-  border-radius: 10px;
+  border-radius: 50%;
 `;
 
 export const Text = styled.div`

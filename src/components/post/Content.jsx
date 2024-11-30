@@ -7,7 +7,7 @@ import axiosInstance from "@apis/axiosInstance";
 import useFetchCsrfToken from "@hooks/useFetchCsrfToken";
 import { useNavigate } from "react-router-dom";
 
-export const Content = ({ id, title, body, images, likes_count, scraps_count, time, writer, anonymous, username, boardTitle }) => {
+export const Content = ({ id, title, body, images, likes_count, scraps_count, time, writer, anonymous, username, boardTitle, profileImg }) => {
   useFetchCsrfToken();
 
   const navigate = useNavigate();
@@ -17,6 +17,7 @@ export const Content = ({ id, title, body, images, likes_count, scraps_count, ti
     const now = new Date();
     const elapseTime = Math.floor((now - date) / (1000 * 60));
 
+    if (elapseTime < 0) return `0분 전`;
     if (elapseTime < 60) return `${elapseTime}분 전`;
     if (elapseTime < 1440) return `${Math.floor(elapseTime / 60)}시간 전`;
     return `${Math.floor(elapseTime / 1440)}일 전`;
@@ -120,12 +121,12 @@ export const Content = ({ id, title, body, images, likes_count, scraps_count, ti
   // 게시글 수정
   const postUpdate = () => {
     const postUpdateUrl = {
-      자유게시판: "/defaultPostingPage",
+      "자유게시판": "/DefaultPostingPage",
       "백엔드 게시판": "/bePostingPage",
       "프론트엔드 게시판": "/fePostingPage",
       "기획/디자인 게시판": "/pmPostingPage",
-      아기사자게시판: "/lionPostingPage",
-      참여게시판: "/joinPostingPage",
+      "아기사자게시판": "/lionPostingPage",
+      "참여게시판": "/joinPostingPage",
       "이벤트/공지게시판": "/notiPostingPage",
     };
     const url = postUpdateUrl[boardTitle];
@@ -138,7 +139,10 @@ export const Content = ({ id, title, body, images, likes_count, scraps_count, ti
     <S.PostWrap>
       <S.User>
         <S.Writter>
-          <S.ProfileImg src={profileLion}></S.ProfileImg>
+          <S.ProfileImg
+            src={!anonymous && profileImg ? profileImg : profileLion}
+            alt="profile img"
+          />
           <S.Text>
             <S.Id>{user}</S.Id>
             <S.Time>{elapseTime}</S.Time>

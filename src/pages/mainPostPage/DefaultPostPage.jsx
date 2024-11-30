@@ -20,7 +20,6 @@ export const DefaultPostPage = () => {
       setPost(response.data);
     } catch (error) {
       console.log("error:", error);
-      setError("게시물을 불러오는 데 실패했습니다.");
     }
   };
   // 댓글 가져오기
@@ -38,7 +37,6 @@ export const DefaultPostPage = () => {
       setComments(commentsArray);
     } catch (error) {
       console.log("error:", error);
-      setError("댓글을 불러오는 데 실패했습니다.");
     }
   };
   useEffect(() => {
@@ -63,7 +61,7 @@ export const DefaultPostPage = () => {
   }
   return (
     <S.Wrapper>
-      <Header title="자유 게시판" />
+      <Header title="자유게시판" />
       <Content
         id={post.id}
         title={post.title}
@@ -74,7 +72,8 @@ export const DefaultPostPage = () => {
         time={post.time}
         writer={post.writer.nickname}
         anonymous={post.anonymous}
-        username={post.writer.username} // unique 속성
+        username={post.writer.username}
+        profileImg={post.writer.profile_image}
       />
       <S.CommentWrap>
         <S.CommentTitle>댓글({comments.length})</S.CommentTitle>
