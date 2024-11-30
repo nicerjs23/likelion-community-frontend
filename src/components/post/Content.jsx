@@ -17,6 +17,7 @@ export const Content = ({ id, title, body, images, likes_count, scraps_count, ti
     const now = new Date();
     const elapseTime = Math.floor((now - date) / (1000 * 60));
 
+    if (elapseTime < 0) return `0분 전`;
     if (elapseTime < 60) return `${elapseTime}분 전`;
     if (elapseTime < 1440) return `${Math.floor(elapseTime / 60)}시간 전`;
     return `${Math.floor(elapseTime / 1440)}일 전`;
