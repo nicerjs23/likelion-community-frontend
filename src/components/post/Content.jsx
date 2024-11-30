@@ -25,8 +25,6 @@ export const Content = ({ id, title, body, images, likes_count, scraps_count, ti
   const elapseTime = getTime(time);
 
   const user = anonymous ? "익명" : writer;
-
-  const user = anonymous ? "익명" : writer;
   const [liked, setLiked] = useState(false);
   const [scrapped, setScrapped] = useState(false);
 

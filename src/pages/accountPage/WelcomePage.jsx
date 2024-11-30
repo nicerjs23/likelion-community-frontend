@@ -20,24 +20,12 @@ export const WelcomePage = () => {
     };
   }, []);
 
-  const handleKakaoLogin = async () => {
-    try {
-      const response = await axiosInstance.get("/signup/login/home/");
-      if (response.data.is_authenticated) {
-        goTo(response.data.redirect_url || "/main");
-      } else {
-        window.location.href = `${
-          import.meta.env.VITE_BASE_URL
-        }/signup/login/kakao/`;
-      }
-    } catch (error) {
-      console.error("로그인 상태 확인 중 오류:", error);
-      window.location.href = `${
-        import.meta.env.VITE_BASE_URL
-      }/signup/login/kakao/`;
-    }
+  const handleKakaoLogin = () => {
+    // 백엔드의 카카오 로그인 URL로 직접 이동
+    window.location.href = `${
+      import.meta.env.VITE_BASE_URL
+    }/signup/login/kakao/`;
   };
-  
   const handleNormalLogin = async () => {
     try {
       // 로그인 상태 확인 API 호출
