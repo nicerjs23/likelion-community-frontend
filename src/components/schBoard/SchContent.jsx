@@ -18,7 +18,8 @@ export const SchContent = ({
   writer, 
   anonymous, 
   username,
-  boardTitle
+  boardTitle,
+  profileImg
 }) => {
   
   useFetchCsrfToken();
@@ -117,7 +118,10 @@ const user = anonymous ? '익명' : writer;
     <S.PostWrap>
       <S.User>
         <S.Writter>
-          <S.ProfileImg src={profileLion}></S.ProfileImg>
+          <S.ProfileImg
+            src={!anonymous && profileImg ? profileImg : profileLion}
+            alt="profile img"
+          />
           <S.Text>
             <S.Id>{user}</S.Id>
             <S.Time>{elapseTime}</S.Time>

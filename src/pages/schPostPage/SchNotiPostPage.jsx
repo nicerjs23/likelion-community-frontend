@@ -91,6 +91,7 @@ export const SchNotiPostPage = () => {
         anonymous={post.anonymous}
         username={post.writer.username}
         boardTitle={boardTitle}
+        profileImg={writer.profile_image}
       />
       <S.CommentWrap>
         <S.CommentTitle>댓글({comments.length})</S.CommentTitle>

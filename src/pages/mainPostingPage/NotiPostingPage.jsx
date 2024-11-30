@@ -78,7 +78,7 @@ export const NotiPostingPage = () => {
   
   return (
     <S.Wrapper>
-      <Header title="이벤트/공지 게시판" />
+      <Header title="이벤트/공지게시판" />
       <S.ContentWrapper>
         <S.ContentWrap>
           <PostingBox post={post} setPost={setPost} onSubmit={handlePostSubmit} />

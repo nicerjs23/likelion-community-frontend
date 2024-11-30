@@ -25,7 +25,6 @@ export const JoinPostPage = () => {
       setPost(response.data);
     } catch (error) {
       console.log("error:", error);
-      setError("게시물을 불러오는 데 실패했습니다.");
     }
   };
 
@@ -45,7 +44,6 @@ export const JoinPostPage = () => {
       setComments(commentsArray);
     } catch (error) {
       console.log("error:", error);
-      setError("댓글을 불러오는 데 실패했습니다.");
     }
   };
 
@@ -88,6 +86,7 @@ export const JoinPostPage = () => {
         anonymous={post.anonymous}
         username={post.writer.username}
         boardTitle={post.board_title}
+        profileImg={post.writer.profile_image}
       />
       <S.CommentWrap>
         <S.CommentTitle>댓글({comments.length})</S.CommentTitle>
