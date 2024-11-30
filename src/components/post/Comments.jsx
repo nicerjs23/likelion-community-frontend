@@ -4,7 +4,7 @@ import styled from "styled-components";
 import profileLion from "@assets/icons/profileLion.svg";
 export const Comments = ({ comment }) => {
   const { anonymous, content, time, writer, anonymous_number } = comment;
-  
+
   const name = anonymous
     ? `익명 ${anonymous_number || ""}` // 익명 번호 추가
     : writer.nickname || "익명";
@@ -17,12 +17,13 @@ export const Comments = ({ comment }) => {
     hour: "2-digit",
     minute: "2-digit",
   });
+
   return (
     <Comment>
       <S.Writter>
         <S.ProfileImg src={profileLion}></S.ProfileImg>
         <S.Text>
-          <p>{name}</p> 
+          <p>{name}</p>
           <p>{date}</p>
         </S.Text>
       </S.Writter>

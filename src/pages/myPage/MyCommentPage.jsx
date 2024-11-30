@@ -53,7 +53,7 @@ export const MyCommentPage = () => {
 
   return (
     <S.Wrapper>
-      <Header title="댓글 쓴 글" />
+      <Header title="댓글 단 글" />
       <S.Posts>
         {MyCommentData.map((comment) => {
           const boardPath = boardPaths[comment.board.board_title] || "/unknownboard"; // 기본값 설정
