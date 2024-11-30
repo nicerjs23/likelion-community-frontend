@@ -1,3 +1,4 @@
+// DefaultPostPage.js
 import * as S from "./PostPage.styled";
 import { Header } from "@components/Header";
 import { Content } from "@components/post/Content";
@@ -6,15 +7,11 @@ import { Input } from "@components/post/Input";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axiosInstance from "@apis/axiosInstance";
-
 export const DefaultPostPage = () => {
   const { id } = useParams();
   const postId = Number(id);
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
-  const boardTitle = "자유게시판"
-
-
   // 게시물 가져오기
   const fetchPost = async () => {
     try {
@@ -26,49 +23,47 @@ export const DefaultPostPage = () => {
       setError("게시물을 불러오는 데 실패했습니다.");
     }
   };
-
   // 댓글 가져오기
   const fetchComments = async () => {
     try {
       const response = await axiosInstance.get(`/post/maincomment/?board_id=${postId}`);
       console.log("comments response:", response.data);
       const data = response.data.results || response.data;
-      const commentsArray = Array.isArray(data) ? data : [data];
-      setComments(commentsArray);
 
+      const commentsArray = Array.isArray(data)
+        ? data.filter((comment) => Number(comment.board) === postId)
+        : data && Number(data.board) === postId
+        ? [data]
+        : [];
+      setComments(commentsArray);
     } catch (error) {
       console.log("error:", error);
       setError("댓글을 불러오는 데 실패했습니다.");
     }
   };
-
   useEffect(() => {
     const fetchData = async () => {
       await fetchPost();
       await fetchComments();
     };
-
     if (postId) {
       fetchData();
     }
   }, [postId]);
-
   useEffect(() => {
     console.log("Updated comments:", comments);
   }, [comments]);
-
   // 댓글 추가 함수
   const handleAddComment = (newComment) => {
     setComments((prevComments) => [...prevComments, newComment]);
   };
-
-  if (!post) { // 로딩 중인 경우
-    return ;
+  if (!post) {
+    // 로딩 중인 경우
+    return;
   }
-
   return (
     <S.Wrapper>
-      <Header title="자유게시판" />
+      <Header title="자유 게시판" />
       <Content
         id={post.id}
         title={post.title}
@@ -79,8 +74,7 @@ export const DefaultPostPage = () => {
         time={post.time}
         writer={post.writer.nickname}
         anonymous={post.anonymous}
-        username={post.writer.username}
-        boardTitle={post.board_title}
+        username={post.writer.username} // unique 속성
       />
       <S.CommentWrap>
         <S.CommentTitle>댓글({comments.length})</S.CommentTitle>
@@ -88,9 +82,8 @@ export const DefaultPostPage = () => {
           <Comments key={comment.id} comment={comment} />
         ))}
       </S.CommentWrap>
-      <Input postId={post.id} onAddComment={handleAddComment} boardTitle={boardTitle}/>
+      <Input postId={post.id} onAddComment={handleAddComment} />
     </S.Wrapper>
   );
 };
-
 export default DefaultPostPage;

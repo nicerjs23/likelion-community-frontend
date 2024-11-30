@@ -52,8 +52,7 @@ export const Bottom = styled.div`
 
 export const Title = styled.h2`
   font-size: 16px;
-  font-family: ${({ theme }) =>
-    theme.fonts.PretendardBold["font-family"]};
+  font-family: ${({ theme }) => theme.fonts.PretendardBold["font-family"]};
 `;
 
 export const Edit = styled.div`
@@ -100,8 +99,7 @@ export const SchoolInfo = styled.div`
 `;
 
 export const SchoolName = styled.div`
-  font-family: ${({ theme }) =>
-    theme.fonts.PretendardSemiBold["font-family"]};
+  font-family: ${({ theme }) => theme.fonts.PretendardSemiBold["font-family"]};
   font-size: 16px;
   display: flex;
   align-items: center;
@@ -111,8 +109,7 @@ export const SchoolBadge = styled.div`
   border-radius: 10px;
   background: #d9d9d9;
   padding: 3px 10px;
-  font-family: ${({ theme }) =>
-    theme.fonts.PretendardRegular["font-family"]};
+  font-family: ${({ theme }) => theme.fonts.PretendardRegular["font-family"]};
   font-size: 13px;
   margin-left: 7px;
 `;
@@ -121,8 +118,7 @@ export const ModifyPhoto = styled.div`
   border-radius: 10px;
   background: #d9d9d9;
   padding: 3px 10px;
-  font-family: ${({ theme }) =>
-    theme.fonts.PretendardRegular["font-family"]};
+  font-family: ${({ theme }) => theme.fonts.PretendardRegular["font-family"]};
   font-size: 13px;
   cursor: pointer;
 `;
@@ -146,8 +142,7 @@ export const SchoolVerify = styled.div`
   button {
     color: #fff;
     margin-top: 3px;
-    font-family: ${({ theme }) =>
-      theme.fonts.PretendardRegular["font-family"]};
+    font-family: ${({ theme }) => theme.fonts.PretendardRegular["font-family"]};
   }
 `;
 export const UploadIcon = styled.div`
@@ -170,8 +165,7 @@ export const Mypost = styled.div`
   gap: 12px;
   display: flex;
   flex-direction: column;
-  font-family: ${({ theme }) =>
-    theme.fonts.PretendardMedium["font-family"]};
+  font-family: ${({ theme }) => theme.fonts.PretendardMedium["font-family"]};
   margin-bottom: 24px;
 `;
 
@@ -224,7 +218,6 @@ export const User = styled.div`
 
 export const Btn = styled.button`
   font-size: 16px;
-  font-family: ${({ theme }) =>
-    theme.fonts.PretendardMedium["font-family"]};
+  font-family: ${({ theme }) => theme.fonts.PretendardMedium["font-family"]};
   cursor: pointer;
 `;
