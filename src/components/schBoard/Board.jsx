@@ -4,7 +4,7 @@ import React from "react";
 import * as S from "./Board.styled";
 import { BoardInfo as BoardInfoComponent } from "./BoardInfo";
 
-export const Board = ({ id, track, title, body, time, anonymous, writer, comments_count, scraps_count, images }) => {
+export const Board = ({ id, track, title, body, time, anonymous, writer, comments_count, likes_count, images }) => {
   const image = images && images.length > 0 ? images[0].image : null;
 
   return (
@@ -23,4 +23,4 @@ export const Board = ({ id, track, title, body, time, anonymous, writer, comment
   );
 };
 
-export default Board;
+export default Board
