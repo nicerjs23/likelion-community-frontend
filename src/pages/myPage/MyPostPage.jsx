@@ -13,16 +13,16 @@ export const MyPostPage = () => {
 
   // 게시글 클릭하면 이동하는 게시판
   const boardPaths = {
-    자유게시판: "/defaultPostPage",
+    "자유게시판": "/defaultPostPage",
     "프론트엔드 게시판": "/fePostPage",
     "백엔드 게시판": "/bePostPage",
     "기획/디자인 게시판": "/pmPostPage",
-    아기사자게시판: "/lionPostPage",
+    "아기사자게시판": "/lionPostPage",
     "이벤트/공지게시판": "/notiPostPage",
-    참여게시판: "/joinPostPage",
+    "참여게시판": "/joinPostPage",
     // 학교
-    전체게시판: "/schDefaultPostPage",
-    질문게시판: "/qnaPostPage",
+    "전체게시판": "/schDefaultPostPage",
+    "질문게시판": "/qnaPostPage",
   };
 
   const getMyPostData = async () => {
@@ -82,6 +82,7 @@ export const MyPostPage = () => {
 
       <S.Posts>
         {MyPostData.map((post) => {
+          console.log("이름뭐ㄸ느데?",post.board_title);
           const boardPath = boardPaths[post.board_title] || "/unknownboard"; // 기본값 설정
 
           return (

@@ -5,22 +5,24 @@ import * as S from "./MyPostPage.styled";
 import { Header } from "@components/Header";
 import { MyPagePost } from "@components/myPage/MyPagePost";
 import { MyPostData } from "../../constant/myPage/myPostData";
+import { useState, useEffect } from "react";
+import axiosInstance from "@apis/axiosInstance";
 
 export const MyScrapPage = () => {
   const [MyScrappedData, setMyScrappedData] = useState([]);
 
   // 게시글 클릭하면 이동하는 게시판
   const boardPaths = {
-    자유게시판: "/defaultPostPage",
+    "자유게시판": "/defaultPostPage",
     "프론트엔드 게시판": "/fePostPage",
     "백엔드 게시판": "/bePostPage",
     "기획/디자인 게시판": "/pmPostPage",
-    아기사자게시판: "/lionPostPage",
+    "아기사자게시판": "/lionPostPage",
     "이벤트/공지게시판": "/notiPostPage",
-    참여게시판: "/joinPostPage",
+    "참여게시판": "/joinPostPage",
     // 학교
-    전체게시판: "/schDefaultPostPage",
-    질문게시판: "/qnaPostPage",
+    "전체게시판": "/schDefaultPostPage",
+    "질문게시판": "/qnaPostPage",
   };
 
   const getMyCommentData = async () => {
