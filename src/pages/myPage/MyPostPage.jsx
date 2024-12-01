@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import * as S from "./MyPostPage.styled";
 import { Header } from "@components/Header";
 import { MyPagePost } from "@components/myPage/MyPagePost";
-import { MyPostData } from "../../constant/myPage/myPostData";
 import axiosInstance from "@apis/axiosInstance";
 import { Link } from "react-router-dom";
 
@@ -28,22 +27,26 @@ export const MyPostPage = () => {
   const getMyPostData = async () => {
     try {
       const response = await axiosInstance.get("/mypage/myposts/");
-      console.log("post Response", response.data);
-
-      const { mainpost, schoolpost, questionpost } = response.data;
-      // 세 배열을 합쳐 하나의 배열로 상태에 저장
-      const combinedPosts = [
-        ...(Array.isArray(mainpost) ? mainpost : []),
-        ...(Array.isArray(schoolpost) ? schoolpost : []),
-        ...(Array.isArray(questionpost) ? questionpost : []),
-      ];
-
+      console.log("API Response Data:", response.data);
+  
+      const { mainpost = [], schoolpost = [], questionpost = [] } = response.data;
+  
+      if (!Array.isArray(mainpost) || !Array.isArray(schoolpost) || !Array.isArray(questionpost)) {
+        console.error("One of the posts is not an array:", { mainpost, schoolpost, questionpost });
+        alert("데이터 형식에 문제가 있습니다.");
+        return;
+      }
+  
+      const combinedPosts = [...mainpost, ...schoolpost, ...questionpost];
+  
+      console.log("Combined Posts:", combinedPosts);
       setMyPostData(combinedPosts);
     } catch (error) {
-      console.error("error", error);
+      console.error("Error fetching posts:", error);
       alert("게시물을 불러오는 중 문제가 발생했습니다.");
     }
   };
+  
 
   useEffect(() => {
     getMyPostData();
@@ -82,8 +85,7 @@ export const MyPostPage = () => {
 
       <S.Posts>
         {MyPostData.map((post) => {
-          console.log("이름뭐ㄸ느데?",post.board_title);
-          const boardPath = boardPaths[post.board_title] || "/unknownboard"; // 기본값 설정
+          const boardPath = boardPaths[post.board_title] || "/qnaPostPage"; // 기본값 설정
 
           return (
             <Link
@@ -103,7 +105,7 @@ export const MyPostPage = () => {
                 comments_count={post.comments_count}
                 time={post.time}
                 anonymous={post.anonymous}
-                writer={post.writer?.name}
+                writer={post.writer?.nickname}
               />
             </Link>
           );
