@@ -56,7 +56,7 @@ export const MyCommentPage = () => {
       <Header title="댓글 단 글" />
       <S.Posts>
         {MyCommentData.map((comment) => {
-          const boardPath = boardPaths[comment.board.board_title] || "/unknownboard"; // 기본값 설정
+          const boardPath = boardPaths[comment.board_title] || "/unknownboard"; // 기본값 설정
 
           return (
             <Link

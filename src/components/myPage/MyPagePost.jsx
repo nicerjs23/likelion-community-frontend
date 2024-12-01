@@ -24,7 +24,7 @@ export const MyPagePost = ({ board_title, title, body, images, comments_count, t
 
   return (
     <S.Wrapper>
-      <S.BoardTitle>#{board_title}</S.BoardTitle>
+      <S.BoardTitle>#{board_title ? board_title : "질문게시판"}</S.BoardTitle>
       <S.Content>
         <S.Left>
           <S.ContentWrap>
