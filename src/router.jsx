@@ -59,7 +59,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <DefaultLayout />,
-    // errorElement: <ErrorPage />, // 잘못된 경로나 오류가 발생했을 때 보여줄 페이지
+    errorElement: <ErrorPage />, // 잘못된 경로나 오류가 발생했을 때 보여줄 페이지
     children: [
       { path: "", element: <WelcomePage /> },
       { path: "main", element: <MainPage /> },
