@@ -53,7 +53,7 @@ export const SchQnaBoardPage = () => {
                     title={post.title}
                     body={post.body}
                     time={post.time}
-                    anonymous={post.asnonymous}
+                    anonymous={post.anonymous}
                     writer={post.writer.nickname}
                     comments_count={post.comments_count}
                     scraps_count={post.scraps_count}
