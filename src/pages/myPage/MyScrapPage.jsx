@@ -74,7 +74,7 @@ export const MyScrapPage = () => {
             id={index}
             board_title={post.board_title}
             title={post.title}
-            content={post.content}
+            body={post.body}
             image_url={post.image_url}
             comments_count={post.comments_count}
             time={post.time}
