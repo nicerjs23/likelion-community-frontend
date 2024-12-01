@@ -152,13 +152,13 @@ export const PreviewWrapper = styled.div`
     255,
     255,
     0.8
-  ); /* 흰색 배경, 투명도 50% */
+  );
 
   border-radius: 10px;
   margin-bottom: 10px;
   position: fixed;
-  bottom: 58px; /* 입력창 위로 고정 */
-  z-index: 10; /* 입력창 위에 표시되도록 */
+  bottom: 58px;
+  z-index: 10;
 `;
 
 export const PreviewImage = styled.img`
@@ -174,4 +174,25 @@ export const RemoveButton = styled.button`
   border: none;
   display: flex;
   cursor: pointer;
+`;
+
+export const PartialAlertOverlay = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+export const PartialAlertMessage = styled.div`
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  padding: 10px;
 `;

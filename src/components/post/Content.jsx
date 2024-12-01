@@ -6,6 +6,7 @@ import profileLion from "@assets/icons/profileLion.svg";
 import axiosInstance from "@apis/axiosInstance";
 import useFetchCsrfToken from "@hooks/useFetchCsrfToken";
 import { useNavigate } from "react-router-dom";
+import { ChatStart } from "@components/chat/ChatStart";
 
 export const Content = ({ id, title, body, images, likes_count, scraps_count, time, writer, anonymous, username, boardTitle, profileImg }) => {
   useFetchCsrfToken();
@@ -144,7 +145,12 @@ export const Content = ({ id, title, body, images, likes_count, scraps_count, ti
             alt="profile img"
           />
           <S.Text>
-            <S.Id>{user}</S.Id>
+            <S.Id>
+              <ChatStart
+                nickname={user}
+                username={username}
+              />
+            </S.Id>
             <S.Time>{elapseTime}</S.Time>
           </S.Text>
         </S.Writter>

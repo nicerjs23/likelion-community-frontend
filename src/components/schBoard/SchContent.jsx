@@ -6,6 +6,7 @@ import profileLion from "@assets/icons/profileLion.svg";
 import axiosInstance from "@apis/axiosInstance";
 import useFetchCsrfToken from "@hooks/useFetchCsrfToken";
 import { useNavigate } from "react-router-dom";
+import { ChatStart } from "@components/chat/ChatStart";
 
 export const SchContent = ({
   id,
@@ -123,7 +124,10 @@ const user = anonymous ? '익명' : writer;
             alt="profile img"
           />
           <S.Text>
-            <S.Id>{user}</S.Id>
+            <ChatStart
+              nickname={user}
+              username={username}
+            />
             <S.Time>{elapseTime}</S.Time>
           </S.Text>
         </S.Writter>
