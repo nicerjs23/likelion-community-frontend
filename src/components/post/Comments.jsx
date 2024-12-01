@@ -2,6 +2,8 @@
 import * as S from "./Content.styled";
 import styled from "styled-components";
 import profileLion from "@assets/icons/profileLion.svg";
+import { ChatStart } from "@components/chat/ChatStart";
+
 export const Comments = ({ comment }) => {
   const { anonymous, content, time, writer, anonymous_number } = comment;
 
@@ -26,7 +28,10 @@ export const Comments = ({ comment }) => {
           alt="profile img"
         />
         <S.Text>
-          <p>{name}</p>
+          <ChatStart
+            nickname={name}
+            username={writer.username}
+          />
           <p>{date}</p>
         </S.Text>
       </S.Writter>

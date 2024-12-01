@@ -22,7 +22,7 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: center;
     background-color: #F1F3F5;
-    padding: 20px 0;
+    padding: 10px 0;
     height: 100px;
 `
 
@@ -60,10 +60,4 @@ const Context = styled.p`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    /* overflow-wrap: anywhere;
-    overflow-y: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical; */
-
 `

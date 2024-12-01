@@ -5,9 +5,12 @@ import { ChatMember } from "@components/chat/ChatMember";
 import { Footer } from "@components/Footer";
 import { Link } from "react-router-dom";
 import axiosInstance from "@apis/axiosInstance";
-import thumbnail from "/thumbnail.png";
+import defaultProfile from "@assets/images/ExImg.svg";
+import useFetchCsrfToken from "@hooks/useFetchCsrfToken";
 
 export const ChatListPage = () => {
+  useFetchCsrfToken();
+  
   const [chatRooms, setChatRooms] = useState([]);
   const [currentUserId, setCurrentUserId] = useState(null); // 로그인한 사용자 ID
 
@@ -43,6 +46,28 @@ export const ChatListPage = () => {
     }
   };
 
+    // 채팅방 나가기
+    const leaveChatRoom = async (roomId) => {
+      try {
+        const response = await axiosInstance.post(
+          `/friend/chatrooms/${roomId}/delete/`,
+          {},
+          {
+            headers: {
+              "X-CSRFToken": axiosInstance.defaults.headers.common["X-CSRFToken"],
+            },
+            withCredentials: true,
+          }
+        );
+        console.log("채팅방 나가기 성공:", response.data);
+      } catch (error) {
+        console.error("채팅방 나가기 중 오류가 발생했습니다:", error);
+      }
+    };
+    
+    
+    
+
   useEffect(() => {
     fetchCurrentUser(); // 현재 사용자 정보 가져오기
     fetchChatRooms(); // 채팅방 목록 가져오기
@@ -61,7 +86,7 @@ export const ChatListPage = () => {
 
             // 상대방의 프로필 이미지 설정
             const profileImage =
-              otherParticipant?.profile_image || thumbnail;
+              otherParticipant?.profile_image || defaultProfile;
 
             // 최신 메시지 설정
             const latestMessage =
@@ -71,13 +96,18 @@ export const ChatListPage = () => {
                 ? room.latest_message.content // 텍스트 메시지
                 : "메시지가 없습니다."; // 메시지가 없을 경우
             return (
-              <Link to={`/chat/${room.id}`} key={room.id}>
-                <ChatMember
-                  name={otherParticipant?.nickname || "알 수 없음"}
-                  context={latestMessage} // 최신 메시지 표시
-                  img={profileImage} // 상대방 프로필 이미지 사용
-                />
-              </Link>
+              <S.ChatRoomContainer key={room.id}>
+                <Link to={`/chat/${room.id}`} style={{ maxWidth: 'calc(100% - 60px)' }}>
+                  <ChatMember
+                    name={otherParticipant?.nickname || "알 수 없음"}
+                    context={latestMessage}
+                    img={profileImage}
+                  />
+                </Link>
+                <S.LeaveButton onClick={() => leaveChatRoom(room.id)}>
+                  나가기
+                </S.LeaveButton>
+              </S.ChatRoomContainer>
             );
           })
         ) : (
