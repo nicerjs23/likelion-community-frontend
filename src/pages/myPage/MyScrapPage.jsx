@@ -4,9 +4,9 @@ import React from "react";
 import * as S from "./MyPostPage.styled";
 import { Header } from "@components/Header";
 import { MyPagePost } from "@components/myPage/MyPagePost";
-import { MyPostData } from "../../constant/myPage/myPostData";
 import { useState, useEffect } from "react";
 import axiosInstance from "@apis/axiosInstance";
+import { Link } from "react-router-dom";
 
 export const MyScrapPage = () => {
   const [MyScrappedData, setMyScrappedData] = useState([]);
@@ -25,48 +25,64 @@ export const MyScrapPage = () => {
     "질문게시판": "/qnaPostPage",
   };
 
-  const getMyCommentData = async () => {
+
+  const getMyScrappedData = async () => {
     try {
       const response = await axiosInstance.get("/mypage/myscraps/");
-      console.log("post Response", response.data);
-
-      const { maincomment, schoolcomment, questioncomment } = response.data;
-      console.log("데이터는", response.data);
-
-      // 세 배열을 합쳐 하나의 배열로 상태에 저장
-      const combinedPosts = [
-        ...(Array.isArray(maincomment) ? maincomment : []),
-        ...(Array.isArray(schoolcomment) ? schoolcomment : []),
-        ...(Array.isArray(questioncomment) ? questioncomment : []),
-      ];
-
-      setMyCommentData(combinedPosts);
+      console.log("API Response Data:", response.data);
+  
+      const { mainscrap = [], schoolscrap = [], questionscrap = [] } = response.data;
+  
+      if (!Array.isArray(mainscrap) || !Array.isArray(schoolscrap) || !Array.isArray(questionscrap)) {
+        console.error("스크랩 게시글 전체 데이터: ", { mainscrap, schoolscrap, questionscrap });
+        alert("데이터 형식에 문제가 있습니다.");
+        return;
+      }
+  
+      const combinedPosts = [...mainscrap, ...schoolscrap, ...questionscrap];
+  
+      console.log("스크랩 게시글 전체 데이터 합침: ", combinedPosts);
+      setMyScrappedData(combinedPosts);
     } catch (error) {
-      console.error("error", error);
+      console.error("Error fetching posts:", error);
       alert("게시물을 불러오는 중 문제가 발생했습니다.");
     }
   };
 
   useEffect(() => {
-    getMyCommentData();
+    getMyScrappedData();
   }, []);
 
   return (
     <S.Wrapper>
       <Header title="스크랩" />
       <S.Posts>
-        {MyPostData.map((post, index) => (
+        {MyScrappedData.map((post, index) => {
+          const boardPath = boardPaths[post.board_title] || "/qnaPostPage";
+
+          return (
+            <Link
+              to={`${boardPath}/${post.id}`} // 동적으로 게시판 경로 설정
+              key={post.id}
+              style={{
+                width: "100%",
+                color: "#323232",
+              }}
+            >
+
           <MyPagePost
-            key={index}
+            id={index}
             board_title={post.board_title}
             title={post.title}
             content={post.content}
             image_url={post.image_url}
             comments_count={post.comments_count}
             time={post.time}
-            writer={post.writer}
+            writer={post.writer?.nickname}
           />
-        ))}
+          </Link>
+        );
+      })}
       </S.Posts>
     </S.Wrapper>
   );

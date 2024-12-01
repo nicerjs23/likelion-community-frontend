@@ -25,24 +25,47 @@ export const MyCommentPage = () => {
     질문게시판: "/qnaPostPage"
   };
 
+  // const getMyCommentData = async () => {
+  //   try {
+  //     const response = await axiosInstance.get("/mypage/mycomments/");
+  //     console.log("post Response", response.data);
+
+  //     const { maincomment, schoolcomment, questioncomment } = response.data;
+  //     console.log("데이터는", response.data);
+
+  //     // 세 배열을 합쳐 하나의 배열로 상태에 저장
+  //     const combinedPosts = [
+  //       ...(Array.isArray(maincomment) ? maincomment : []),
+  //       ...(Array.isArray(schoolcomment) ? schoolcomment : []),
+  //       ...(Array.isArray(questioncomment) ? questioncomment : []),
+  //     ];
+
+  //     setMyCommentData(combinedPosts);
+  //   } catch (error) {
+  //     console.error("error", error);
+  //     alert("게시물을 불러오는 중 문제가 발생했습니다.");
+  //   }
+  // };
+
   const getMyCommentData = async () => {
     try {
       const response = await axiosInstance.get("/mypage/mycomments/");
-      console.log("post Response", response.data);
-
-      const { maincomment, schoolcomment, questioncomment } = response.data;
-      console.log("데이터는", response.data);
-
-      // 세 배열을 합쳐 하나의 배열로 상태에 저장
-      const combinedPosts = [
-        ...(Array.isArray(maincomment) ? maincomment : []),
-        ...(Array.isArray(schoolcomment) ? schoolcomment : []),
-        ...(Array.isArray(questioncomment) ? questioncomment : []),
-      ];
-
+      console.log("API Response Data:", response.data);
+  
+      const { maincomment = [], schoolcomment = [], questioncomment = [] } = response.data;
+  
+      if (!Array.isArray(maincomment) || !Array.isArray(schoolcomment) || !Array.isArray(questioncomment)) {
+        console.error("One of the posts is not an array:", { maincomment, schoolcomment, questioncomment });
+        alert("데이터 형식에 문제가 있습니다.");
+        return;
+      }
+  
+      const combinedPosts = [...maincomment, ...schoolcomment, ...questioncomment];
+  
+      console.log("댓글 단 글 전체 불러오기:", combinedPosts);
       setMyCommentData(combinedPosts);
     } catch (error) {
-      console.error("error", error);
+      console.error("댓글 단 글 전체 불러오기 실패:", error);
       alert("게시물을 불러오는 중 문제가 발생했습니다.");
     }
   };
@@ -56,7 +79,7 @@ export const MyCommentPage = () => {
       <Header title="댓글 단 글" />
       <S.Posts>
         {MyCommentData.map((comment) => {
-          const boardPath = boardPaths[comment.board_title] || "/unknownboard"; // 기본값 설정
+          const boardPath = boardPaths[comment.board_title] || "/qnaPostPage"; // 기본값 설정
 
           return (
             <Link
@@ -76,7 +99,7 @@ export const MyCommentPage = () => {
                 comments_count={comment.board.comments_count}
                 time={comment.time}
                 anonymous={comment.anonymous}
-                writer={comment.writer?.name}
+                writer={comment.writer?.nickname}
               />
             </Link>
           );

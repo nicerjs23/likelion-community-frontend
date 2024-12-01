@@ -105,7 +105,7 @@ export const MyPostPage = () => {
                 comments_count={post.comments_count}
                 time={post.time}
                 anonymous={post.anonymous}
-                writer={post.writer?.name}
+                writer={post.writer?.nickname}
               />
             </Link>
           );
