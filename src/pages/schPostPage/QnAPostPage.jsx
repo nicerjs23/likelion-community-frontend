@@ -2,14 +2,12 @@
 
 import * as S from "../mainPostPage/PostPage.styled";
 import { Header } from "@components/Header";
-import { Content } from "@components/post/Content";
 import { Comments } from "@components/post/Comments";
 import { Input } from "@components/post/Input";
 import { SchContent } from "@components/schBoard/SchContent"
 import { useParams } from "react-router-dom";
 import { useState, useEffect  } from "react";
 import axiosInstance from "@apis/axiosInstance";
-
 
 export const QnAPostPage = () => {
   const boardTitle="질문게시판";

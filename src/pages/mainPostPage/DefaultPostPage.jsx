@@ -12,6 +12,7 @@ export const DefaultPostPage = () => {
   const postId = Number(id);
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
+  const boardTitle = "자유게시판"
   // 게시물 가져오기
   const fetchPost = async () => {
     try {
@@ -74,6 +75,7 @@ export const DefaultPostPage = () => {
         anonymous={post.anonymous}
         username={post.writer.username}
         profileImg={post.writer.profile_image}
+        boardTitle={post.board_title}
       />
       <S.CommentWrap>
         <S.CommentTitle>댓글({comments.length})</S.CommentTitle>
@@ -81,7 +83,7 @@ export const DefaultPostPage = () => {
           <Comments key={comment.id} comment={comment} />
         ))}
       </S.CommentWrap>
-      <Input postId={post.id} onAddComment={handleAddComment} />
+      <Input postId={post.id} onAddComment={handleAddComment}  boardTitle={boardTitle}/>
     </S.Wrapper>
   );
 };

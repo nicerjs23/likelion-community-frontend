@@ -6,7 +6,7 @@ export const Comments = ({ comment }) => {
   const { anonymous, content, time, writer, anonymous_number } = comment;
 
   const name = anonymous
-    ? `익명 ${anonymous_number || ""}` // 익명 번호 추가
+    ? `익명${anonymous_number || ""}` // 익명 번호 추가
     : writer.nickname || "익명";
 
   // 시간 포맷팅
