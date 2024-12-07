@@ -12,7 +12,6 @@ export const Wrapper = styled.section`
   background: ${({ theme }) => theme.colors.bgGradient};
   //background-color는 단색배경에만 적용됨
   box-sizing: border-box;
-  padding: 0 5.56vw; /* 좌우 360 800기준으로 잡음 4.5vh*/
 `;
 
 //안에 컨텐츠를 감싸는 래퍼
@@ -71,6 +70,8 @@ export const LogoText = styled.div`
 //버튼두개  감싸는거
 export const BtnWrapper = styled.div`
   display: flex;
+  width: 80%;
+  margin: 0 auto;
   flex-direction: column;
   align-items: center;
   gap: calc(var(--vh, 1vh) * 2.25);
