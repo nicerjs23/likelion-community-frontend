@@ -22,7 +22,7 @@ export const User = styled.div`
 export const ProfileImg = styled.img`
   width: 35px;
   height: 35px;
-  border-radius: 10px;
+  border-radius: 50%;
 `;
 
 export const Text = styled.div`
@@ -98,14 +98,17 @@ export const Button = styled.div`
 `;
 
 export const Like = styled.button`
+  cursor: pointer;
   margin-right: 10px;
-  background-color: ${({ liked }) => (liked ? "#fde4c6" : "#EFEFEF")};
+  transition: background-color 0.3s, color 0.3s; /* 부드러운 전환 효과 */
+  background-color: ${(props) => (props.liked ? "#fde4c6" : "#EFEFEF")};
   span {
-    color: ${({ liked }) => (liked ? "#ff7d2c" : "#767676")};
+    color: ${(props) => (props.liked ? "#ff7d2c" : "#767676")};
   }
 `;
 
 export const Scrap = styled.button`
+  cursor: pointer;
   background-color: ${({ scrapped }) => (scrapped ? "#fde4c6" : "#EFEFEF")};
   span {
     color: ${({ scrapped }) => (scrapped ? "#ffa232" : "#767676")};

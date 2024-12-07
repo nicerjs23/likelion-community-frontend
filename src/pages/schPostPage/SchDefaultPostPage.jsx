@@ -8,46 +8,46 @@ import { Input } from "@components/post/Input";
 import { SchContent } from "@components/schBoard/SchContent"
 import { useParams } from "react-router-dom";
 import { useState, useEffect  } from "react";
+import axiosInstance from "@apis/axiosInstance";
 
 export const SchDefaultPostPage = () => {
+  const boardTitle="전체게시판";
   const { id } = useParams();
   const postId = Number(id);
-  console.log("Post ID from params:", postId);
+  console.log("ID from params:", id);
+  console.log("Converted post ID:", postId);
+
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
   
   // 게시물 가져오기
   const fetchPost = async () => {
     try {
-      const response = await axiosInstance.get('/post/schoolboard/${postId}');
+      const response = await axiosInstance.get(`/post/schoolboard/${postId}`);
       console.log("학교 전체 게시판 데이터:", response.data);
       setPost(response.data);
     } catch (error) {
-      console.log("error:", error);
+      console.log('학교 전체 게시글 가져오기 실패:',error)
     }
   };
-
-  useEffect(() => {
-    fetchPost();
-  }, []);
-
+  
   
   // 댓글 가져오기
   const fetchComments = async () => {
     try {
-      const response = await axiosInstance.get(`/post/schoolcomment/${postId}`);
-      console.log("comments response:", response.data);
+      const response = await axiosInstance.get(`/post/schoolcomment/?board_id=${postId}`);
+      console.log("댓글 가져오기 성공 :", response.data);
       const data = response.data.results || response.data;
 
-      const commentsArray = Array.isArray(data)
-        ? data.filter(comment => Number(comment.board) === postId)
-        : data && Number(data.board) === postId
-        ? [data]
-        : [];
+      // const commentsArray = Array.isArray(data)
+      //   ? data.filter(comment => Number(comment.board) === postId)
+      //   : data && Number(data.board) === postId
+      //   ? [data]
+      //   : [];
 
-      setComments(commentsArray);
+      setComments(data);
     } catch (error) {
-      console.log("error:", error);
+      console.log("댓글 가져오기 실패 :", error);
     }
   };
 
@@ -78,7 +78,7 @@ export const SchDefaultPostPage = () => {
 
   return (
     <S.Wrapper>
-      <Header title="전체 게시판" />
+      <Header title="전체게시판" />
       <SchContent
         id={post.id}
         title={post.title}
@@ -89,7 +89,9 @@ export const SchDefaultPostPage = () => {
         time={post.time}
         writer={post.writer.nickname}
         anonymous={post.anonymous}
-        username={post.writer.username} // unique 속성
+        username={post.writer.username}
+        boardTitle={boardTitle}
+        profileImg={post.writer.profile_image}
       />
       <S.CommentWrap>
         <S.CommentTitle>댓글({comments.length})</S.CommentTitle>
@@ -97,7 +99,9 @@ export const SchDefaultPostPage = () => {
           <Comments key={comment.id} comment={comment} />
         ))}
       </S.CommentWrap>
-      <Input postId={post.id} onAddComment={handleAddComment} />
+      <Input postId={post.id} onAddComment={handleAddComment} boardTitle={boardTitle}/>
     </S.Wrapper>
   );
 };
+
+export default SchDefaultPostPage;

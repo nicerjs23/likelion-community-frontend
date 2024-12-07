@@ -28,6 +28,7 @@ export const ActionBar = styled.div`
   width: 100%;
   justify-content: flex-end;
   gap: 16px;
+  margin-top: 4px;
 `;
 
 //글쓰기 버튼

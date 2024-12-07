@@ -1,3 +1,4 @@
+import { Modify } from "@components/post/Content.styled";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -32,7 +33,7 @@ export const Img = styled.img`
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   object-fit: cover;
 `;
 
@@ -63,10 +64,17 @@ export const Name = styled.div`
   font-size: 15px;
 `;
 
+export const BadgeWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 export const Badge = styled.div`
   border-radius: 10px;
   background: #d9d9d9;
-  padding: 3px 10px;
+  padding: 3px 5px;
+  margin-right: 4px;
+  text-align: center;
 `;
 
 export const Track = styled.div`
@@ -85,6 +93,11 @@ export const School = styled.div`
   margin-bottom: 24px;
 `;
 
+export const SchoolInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 export const SchoolName = styled.div`
   font-family: ${({ theme }) => theme.fonts.PretendardSemiBold["font-family"]};
   font-size: 16px;
@@ -99,6 +112,15 @@ export const SchoolBadge = styled.div`
   font-family: ${({ theme }) => theme.fonts.PretendardRegular["font-family"]};
   font-size: 13px;
   margin-left: 7px;
+`;
+
+export const ModifyPhoto = styled.div`
+  border-radius: 10px;
+  background: #d9d9d9;
+  padding: 3px 10px;
+  font-family: ${({ theme }) => theme.fonts.PretendardRegular["font-family"]};
+  font-size: 13px;
+  cursor: pointer;
 `;
 
 export const SchoolVerify = styled.div`

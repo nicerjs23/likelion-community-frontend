@@ -14,6 +14,7 @@ export const JoinPostPage = () => {
   const postId = Number(id);
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
+  const boardTitle = "참여게시판"
 
 
   // 게시물 가져오기
@@ -24,7 +25,6 @@ export const JoinPostPage = () => {
       setPost(response.data);
     } catch (error) {
       console.log("error:", error);
-      setError("게시물을 불러오는 데 실패했습니다.");
     }
   };
 
@@ -44,7 +44,6 @@ export const JoinPostPage = () => {
       setComments(commentsArray);
     } catch (error) {
       console.log("error:", error);
-      setError("댓글을 불러오는 데 실패했습니다.");
     }
   };
 
@@ -86,6 +85,8 @@ export const JoinPostPage = () => {
         writer={post.writer.nickname}
         anonymous={post.anonymous}
         username={post.writer.username}
+        boardTitle={post.board_title}
+        profileImg={post.writer.profile_image}
       />
       <S.CommentWrap>
         <S.CommentTitle>댓글({comments.length})</S.CommentTitle>
@@ -93,7 +94,7 @@ export const JoinPostPage = () => {
           <Comments key={comment.id} comment={comment} />
         ))}
       </S.CommentWrap>
-      <Input postId={post.id} onAddComment={handleAddComment} />
+      <Input postId={post.id} onAddComment={handleAddComment} boardTitle={boardTitle}/>
     </S.Wrapper>
   );
 };

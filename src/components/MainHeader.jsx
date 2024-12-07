@@ -34,7 +34,6 @@ export const MainHeader = ({ title }) => {
         </Left>
         <Right>
           <Link to="/myPage">
-            {/* <Profile src="" alt=" profile img" /> */}
             <Profile src={profileImage || defaultProfile} alt="profile img" />
           </Link>
         </Right>
@@ -95,8 +94,8 @@ const Right = styled.div`
 
 const Profile = styled.img`
   border-radius: 50%;
-  border: 1px solid black;
-  width: 28px;
-  height: 28px;
+  /* border: 1px solid black; */
+  width: 30px;
+  height: 30px;
   object-fit: cover;
 `;

@@ -10,8 +10,16 @@ import { Link } from 'react-router-dom'
 import axiosInstance from '@apis/axiosInstance'
 import { useState, useEffect } from 'react'
 
+const filterData = {
+  data: ["트랙선택", "공통", "프론트엔드", "백엔드", "기획/디자인"],
+};
+
 export const SchQnaBoardPage = () => {
-    const [posts, setPost] = useState([]);
+  const [posts, setPost] = useState([]);
+  const [clickTrack, setClickTrack] = useState("트랙선택");
+
+  const filterPosts = clickTrack === "트랙선택"
+  ? posts : posts.filter((post) => post.track === clickTrack);
 
   // 게시물 가져오기
   const fetchPost = async () => {
@@ -21,7 +29,6 @@ export const SchQnaBoardPage = () => {
       setPost(response.data);
     } catch (error) {
       console.log("error:", error);
-      setError("게시물을 불러오는 데 실패했습니다.");
     }
   };
 
@@ -31,17 +38,31 @@ export const SchQnaBoardPage = () => {
 
     return (
         <S.Wrapper>
-            <Header title='질문 게시판' />
+            <Header title='질문게시판' />
+            <S.DropdownWrap>
+              <Dropdown 
+                props={filterData} 
+                onChange={setClickTrack}
+              />
+            </S.DropdownWrap>
             <S.Content>
-              {posts.map((post, index) => (
-                <SchBoard 
-                  key={index}
-                  title={post.title}
-                  body={post.body}
-                />
+              {filterPosts.map((post) => (
+                <Link to={`/qnaPostPage/${post.id}`} key={post.id}>
+                  <SchBoard
+                    track={post.track}
+                    title={post.title}
+                    body={post.body}
+                    time={post.time}
+                    anonymous={post.anonymous}
+                    writer={post.writer.nickname}
+                    comments_count={post.comments_count}
+                    scraps_count={post.scraps_count}
+                    images={post.image}
+                  />
+                </Link>
               ))}
             </S.Content>
-            <Link to='/'>
+            <Link to='/qnaPostingPage'>
                 <WriteBtn />
             </Link>
         </S.Wrapper>

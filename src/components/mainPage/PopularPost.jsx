@@ -27,7 +27,7 @@ export const PopularPost = ({id, board_title, body}) => {
                 return "🚥 기획/디자인 게시판";
             case "아기사자게시판":
                 return "🦁 아기사자게시판";
-            case "이벤트/공지 게시판":
+            case "이벤트/공지게시판":
                 return "📢 이벤트/공지게시판";
             case "참여게시판":
                 return "✋ 참여게시판";
@@ -36,17 +36,6 @@ export const PopularPost = ({id, board_title, body}) => {
         }
     }
 
-    // const getTime = (time) => {
-	// 	const date=new Date(time);
-	// 	const now = new Date();
-	// 	const elapseTime = Math.floor((now - date) / (1000 * 60));
-
-	// 	if (elapseTime < 60) return `${elapseTime}분 전`;
-	// 	if (elapseTime < 1440) return `${Math.floor(elapseTime / 60)}시간 전`;
-	// 	return `${Math.floor(elapseTime / 1440)}일 전`;
-	// }
-
-    // const user = anonymous ? '익명' : writer;
 
     return (
         <Wrapper>

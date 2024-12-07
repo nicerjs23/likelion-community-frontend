@@ -1,5 +1,4 @@
-//운영진 출석등록 글쓰기 박스 컴포넌트
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as S from "./AdminAttPost.styled.js";
 import { Dropdown } from "@components/adminAtt/Dropdown.jsx";
 import postIcon from "@assets/icons/postIcon.svg";
@@ -18,19 +17,41 @@ export const AdminAttPost = ({
   setLateTime,
   setAbsentTime,
 }) => {
-  const [lateTime, setLocalLateTime] = useState("");
-  const [absentTime, setLocalAbsentTime] = useState("");
-  // 날짜를 YYYY-MM-DD 형식으로 변환하여 부모 컴포넌트에 전달
+  // 오늘 날짜와 현재 시간을 초기값으로 설정
+  const today = new Date();
+  const formattedDate = format(today, "yyyy-MM-dd"); // 오늘 날짜
+  const formattedTime = format(today, "HH:mm"); // 현재 시간
+
+  const [localDate, setLocalDate] = useState(formattedDate); // 로컬 날짜 상태
+  const [localTime, setLocalTime] = useState(formattedTime); // 로컬 시간 상태
+  const [lateTime, setLocalLateTime] = useState(""); // 지각 기준 시간
+  const [absentTime, setLocalAbsentTime] = useState(""); // 결석 기준 시간
+
+  // 초기값을 부모 컴포넌트에 전달
+  useEffect(() => {
+    setDate(localDate); // 초기 날짜 전달
+    setTime(localTime); // 초기 시간 전달
+  }, []); // 빈 배열로 설정하여 최초 렌더링 시 한 번만 실행
+
+  // 날짜 변경 핸들러
   const handleDateChange = (date) => {
     const formattedDate = format(date, "yyyy-MM-dd");
-    setDate(formattedDate);
+    setLocalDate(formattedDate); // 로컬 상태 업데이트
+    setDate(formattedDate); // 부모 컴포넌트에 전달
   };
+
+  // 시간 변경 핸들러
+  const handleTimeChange = (e) => {
+    const newTime = e.target.value;
+    setLocalTime(newTime); // 로컬 상태 업데이트
+    setTime(newTime); // 부모 컴포넌트에 전달
+  };
+
   // 유효성 검사 함수
   const validateTimeValues = () => {
     const late = parseInt(lateTime, 10);
     const absent = parseInt(absentTime, 10);
 
-    // 숫자 범위 유효성 검사
     if (
       (lateTime && (isNaN(late) || late < 0 || late > 60)) ||
       (absentTime && (isNaN(absent) || absent < 0 || absent > 60))
@@ -38,15 +59,14 @@ export const AdminAttPost = ({
       alert("0에서 60 사이의 숫자를 입력해 주세요.");
       setLocalLateTime("");
       setLocalAbsentTime("");
-      setLateTime(""); // 부모 컴포넌트로 전달
-      setAbsentTime(""); // 부모 컴포넌트로 전달
+      setLateTime(""); // 부모 컴포넌트에 전달
+      setAbsentTime(""); // 부모 컴포넌트에 전달
     } else if (absent <= late && absentTime && lateTime) {
-      // 지각 기준과 결석 기준 비교
       alert("결석 시간은 지각 시간보다 커야 합니다.");
       setLocalLateTime("");
       setLocalAbsentTime("");
-      setLateTime(""); // 부모 컴포넌트로 전달
-      setAbsentTime(""); // 부모 컴포넌트로 전달
+      setLateTime(""); // 부모 컴포넌트에 전달
+      setAbsentTime(""); // 부모 컴포넌트에 전달
     }
   };
 
@@ -86,10 +106,14 @@ export const AdminAttPost = ({
           />
         </S.InputSectionGap>
         <S.InputSectionGap $gap10>
-          <Calendar setDate={handleDateChange} /> {/* 수정된 부분 */}
+          <Calendar
+            setDate={handleDateChange}
+            value={localDate} // 로컬 상태로 관리된 날짜 표시
+          />
           <S.InputTime
             type="time"
-            onChange={(e) => setTime(e.target.value)}
+            onChange={handleTimeChange} // 시간 변경 핸들러 연결
+            value={localTime} // 로컬 상태로 관리된 시간 표시
           />
         </S.InputSectionGap>
         <S.InputSectionGap>

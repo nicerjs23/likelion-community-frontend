@@ -5,36 +5,37 @@ import comment from "@assets/icons/comment.svg";
 import { useState } from "react";
 import axiosInstance from "@apis/axiosInstance";
 
-export const Input = ({ postId, onAddComment }) => {
-
+export const Input = ({ postId, onAddComment, boardTitle }) => {
   const [content, setContent] = useState("");
   const [anonymous, setAnonymous] = useState(false);
   const [submit, setSubmit] = useState(false);
-
   const handleSubmit = async () => {
     if (!content.trim()) {
       alert("댓글 내용을 입력해주세요.");
       return;
     }
-
     setSubmit(true);
     try {
+      const commentUrl =
+      boardTitle === "전체게시판"
+        ? "/post/schoolcomment/"
+        : boardTitle === "질문게시판"
+        ? "/post/questioncomment/"
+        : boardTitle === "공지사항"
+        ? "/post/schoolnoticecomment/"
+        : "/post/maincomment/";
+
       const requestBody = {
         content: content.trim(),
         anonymous: anonymous,
-        board: postId,
+        board: Number(postId),
       };
 
-
-      const response = await axiosInstance.post(
-        "/post/maincomment/",
-        requestBody,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axiosInstance.post(commentUrl, requestBody, {
+        headers: {
+          "Content-Type": "application/json", // FormData 전송 시 헤더 설정
+        },
+      });
       console.log("댓글 작성 성공:", response.data);
 
       if (onAddComment) {
@@ -51,28 +52,17 @@ export const Input = ({ postId, onAddComment }) => {
       setSubmit(false);
     }
   };
-
   return (
     <WriteWrap>
       <Check>
-        <CheckBox 
-          type="checkbox"
-          id="check"
-          checked={anonymous}
-          onChange={(e) => setAnonymous(e.target.checked)}
-        />
+        <CheckBox type="checkbox" id="check" checked={anonymous} onChange={(e) => setAnonymous(e.target.checked)} />
         <CheckLabel htmlFor="check">익명</CheckLabel>
       </Check>
-      <Write
-        placeholder="댓글을 입력해주세요."
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-      />
+      <Write placeholder="댓글을 입력해주세요." value={content} onChange={(e) => setContent(e.target.value)} />
       <WriteBtn onClick={handleSubmit} disabled={submit}></WriteBtn>
     </WriteWrap>
   );
 };
-
 export const WriteWrap = styled.div`
   position: fixed;
   bottom: 3vh;
@@ -88,12 +78,10 @@ export const WriteWrap = styled.div`
   background-color: #e7e4e4;
   padding: 10px;
 `;
-
 export const Check = styled.div`
   display: flex;
   align-items: center;
 `;
-
 export const CheckBox = styled.input`
   cursor: pointer;
   appearance: none;
@@ -109,19 +97,16 @@ export const CheckBox = styled.input`
     background-position: center;
     background-size: 12px 12px;
   }
-
   &:checked + label {
     color: #ff7d2c;
   }
 `;
-
 export const CheckLabel = styled.label`
   margin-left: 4px;
   font-family: ${({ theme }) => theme.fonts.PretendardMedium["font-family"]};
   font-size: 13px;
   color: #767676;
 `;
-
 export const Write = styled.input`
   outline: none;
   font-family: ${({ theme }) => theme.fonts.PretendardSemiBold["font-family"]};
@@ -133,7 +118,6 @@ export const Write = styled.input`
     color: #ccc9c9;
   }
 `;
-
 export const WriteBtn = styled.button`
   cursor: pointer;
   width: 20px;

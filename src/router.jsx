@@ -24,8 +24,11 @@ import { NotiPostingPage } from "@pages/mainPostingPage/NotiPostingPage";
 import { PmPostingPage } from "@pages/mainPostingPage/PmPostingPage";
 import { QnAPostingPage } from "@pages/schPostingPage/QnAPostinPage";
 import { SchDefaultPostingPage } from "@pages/schPostingPage/SchDefaultPostingPage";
+import { SchNotiPostingPage } from "@pages/schPostingPage/SchNotiPostingPage";
+
 import { SchAllBoardPage } from "@pages/schBoardPage/SchAllBoardPage";
 import { SchQnaBoardPage } from "@pages/schBoardPage/SchQnaBoardPage";
+import { SchNotiBoardPage } from "@pages/schBoardPage/SchNotiBoardPage";
 import { CommuMainPage } from "@pages/commuPage/CommuMainPage";
 import { DefaultBoardPage } from "@pages/boardPage/DefaultBoardPage";
 import { BeBoardPage } from "@pages/boardPage/BeBoardPage";
@@ -44,6 +47,7 @@ import { NotiPostPage } from "@pages/mainPostPage/NotiPostPage";
 import { PmPostPage } from "@pages/mainPostPage/PmPostPage";
 import { QnAPostPage } from "@pages/schPostPage/QnAPostPage";
 import { SchDefaultPostPage } from "@pages/schPostPage/SchDefaultPostPage";
+import { SchNotiPostPage } from "@pages/schPostPage/SchNotiPostPage";
 import { MyPostPage } from "@pages/myPage/MyPostPage";
 import { MyCommentPage } from "@pages/myPage/MyCommentPage";
 import { MyScrapPage } from "@pages/myPage/MyScrapPage";
@@ -85,8 +89,10 @@ export const router = createBrowserRouter([
         path: "schDefaultPostingPage",
         element: <SchDefaultPostingPage />,
       },
+      { path: "SchNotiPosting", element: <SchNotiPostingPage /> },
       { path: "schAllBoard", element: <SchAllBoardPage /> },
       { path: "schQnaBoard", element: <SchQnaBoardPage /> },
+      { path: "schNotiBoard", element: <SchNotiBoardPage /> },
       { path: "commuMain", element: <CommuMainPage /> },
       { path: "defaultBoard", element: <DefaultBoardPage /> },
       { path: "feBoard", element: <FeBoardPage /> },
@@ -105,6 +111,7 @@ export const router = createBrowserRouter([
       { path: "pmPostPage/:id", element: <PmPostPage /> },
       { path: "qnaPostPage/:id", element: <QnAPostPage /> },
       { path: "schDefaultPostPage/:id", element: <SchDefaultPostPage /> },
+      { path: "schNotiPostPage/:id", element: <SchNotiPostPage /> },
       { path: "myPost", element: <MyPostPage /> },
       { path: "myComment", element: <MyCommentPage /> },
       { path: "myScrap", element: <MyScrapPage /> },

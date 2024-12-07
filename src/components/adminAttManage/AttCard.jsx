@@ -92,6 +92,8 @@ const Name = styled.div`
   font-weight: bold;
   color: #111111;
   font-size: 16px;
+  font-family: ${({ theme }) =>
+    theme.fonts.PretendardSemiBold["font-family"]};
 `;
 
 const Details = styled.div`
@@ -99,6 +101,8 @@ const Details = styled.div`
   margin-left: 3px;
   font-size: 14px;
   color: #767676;
+  font-family: ${({ theme }) =>
+    theme.fonts.PretendardSemiBold["font-family"]};
 `;
 
 const Status = styled.button`
@@ -109,6 +113,8 @@ const Status = styled.button`
   height: 37px;
   border-radius: 32px;
   font-size: 15px;
+  font-family: ${({ theme }) =>
+    theme.fonts.PretendardSemiBold["font-family"]};
   background-color: ${({ $status }) =>
     $status === "출석"
       ? "#A2FF9A"

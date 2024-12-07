@@ -1,15 +1,14 @@
 // Comments.js
-
 import * as S from "./Content.styled";
 import styled from "styled-components";
 import profileLion from "@assets/icons/profileLion.svg";
+import { ChatStart } from "@components/chat/ChatStart";
 
 export const Comments = ({ comment }) => {
-  const { anonymous, content, time, writer } = comment;
+  const { anonymous, content, time, writer, anonymous_number } = comment;
 
-  // 작성자 이름 결정
   const name = anonymous
-    ? "익명"
+    ? `익명${anonymous_number || ""}` // 익명 번호 추가
     : writer.nickname || "익명";
 
   // 시간 포맷팅
@@ -24,9 +23,15 @@ export const Comments = ({ comment }) => {
   return (
     <Comment>
       <S.Writter>
-        <S.ProfileImg src={profileLion}></S.ProfileImg>
+        <S.ProfileImg
+          src={!anonymous && writer.profile_image ? writer.profile_image : profileLion}
+          alt="profile img"
+        />
         <S.Text>
-          <p>{name}</p>
+          <ChatStart
+            nickname={name}
+            username={writer.username}
+          />
           <p>{date}</p>
         </S.Text>
       </S.Writter>
@@ -34,7 +39,6 @@ export const Comments = ({ comment }) => {
     </Comment>
   );
 };
-
 const Comment = styled.div`
   width: 100%;
   padding: 10px 15px;

@@ -1,6 +1,6 @@
 // 아기사자 출석 정보 확인 페이지
 import { useState, useEffect } from "react";
-import { Header } from "@components/Header";
+import { F5Header } from "@components/adminAttManage/F5Header";
 import * as S from "./LionAttInfoPage.styled";
 import LionAttInfo from "@components/lionAttPage/LionAttInfo";
 import LionAttTimer from "@components/lionAttPage/LionAttTimer";
@@ -61,7 +61,7 @@ export const LionAttInfoPage = () => {
 
   return (
     <S.Wrapper>
-      <Header title="출석 정보" />
+      <F5Header title="출석 정보" />
       <S.Content>
         <LionAttInfo
           date={infoData.date}
@@ -134,12 +134,14 @@ export const LionAttInfoPage = () => {
           absentTime={infoData?.absent_threshold}
           setIsTimerActive={setIsTimerActive}
         />
-        {isTimerActive ? (
+        {isTimerActive && status !== "출석" && status !== "지각" ? (
           <S.AttSubmitBtn
             onClick={() => goToWithId("/lionAttNum", id)}
           >
             출석하러 가기
           </S.AttSubmitBtn>
+        ) : status === "출석" || status === "지각" ? (
+          <S.AttSubmitBtn disabled>이미 출석했습니다</S.AttSubmitBtn>
         ) : (
           <S.AttSubmitBtn disabled>
             출석 시간이 아닙니다

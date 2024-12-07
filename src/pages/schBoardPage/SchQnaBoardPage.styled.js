@@ -10,10 +10,14 @@ export const Wrapper = styled.div`
     position: relative;
 `
 
+export const DropdownWrap = styled.div`
+    margin: 7.25vh auto 9px 0;
+`
+
 export const Content = styled.div`
     display: flex;
     flex-direction: column;
     gap: 9px;
-    margin-top: 7.25vh;
     margin-bottom: 9px;
+    width: 100%;
 `

@@ -18,12 +18,15 @@ export const SchMainPage = () => {
 
   const { goTo } = useCustomNavigate();
   const [isStaff, setIsStaff] = useState(false); //운영진유무 상태관리
+  const [schoolName, setSchoolName]=useState("");
+
   // API 호출 및 is_staff 값 가져오기
   useEffect(() => {
     const fetchIsStaff = async () => {
       try {
         const response = await axiosInstance.get("/attendance/main/");
         setIsStaff(response.data.user_info.is_staff);
+        setSchoolName(response.data.user_info.school_name);
       } catch (error) {
         console.error("Error fetching is_staff:", error);
       }
@@ -33,22 +36,44 @@ export const SchMainPage = () => {
   }, []);
   console.log("운영진이니?:", isStaff);
 
-  // 예시 데이터
-  const posts1 = [
-    { time: "6", user: "익명", content: "내용입니다내용입니다" },
-    { time: "7", user: "익명2", content: "내용입니다2" },
-    { time: "7", user: "익명2", content: "내용입니다2" },
-  ];
+  // 전체 게시판 최근글 3개
+  const [defaultPosts, setDefaultPosts] = useState([]);
 
-  const posts2 = [
-    { time: "7", user: "익명2", content: "내용입니다2" },
-    { time: "8", user: "익명3", content: "내용입니다3" },
-    { time: "9", user: "익명3", content: "내용입니다4" },
-  ];
+  const fetchDefaultPosts = async () => {
+    try{
+        const response = await axiosInstance.get('/post/latest-school-board/');
+        console.log('전체 게시판 최근글 3개 :', response.data);
+        setDefaultPosts(Array.isArray(response.data) ? response.data : [response.data]);
+    } catch(error) {
+        console.log('error:',error)
+    }
+  }
+
+  useEffect(() => {
+    fetchDefaultPosts();
+  }, [])
+
+  // 질문 게시판 최근글 3개
+  const [qnaPosts, setqnaPosts] = useState([]);
+
+  const fetchQnaPosts = async () => {
+    try{
+        const response = await axiosInstance.get('/post/latest-question-board/');
+        console.log('질문 게시판 최근글 3개 :', response.data);
+        setqnaPosts(Array.isArray(response.data) ? response.data : [response.data]);
+    } catch(error) {
+        console.log('error:',error)
+    }
+  }
+
+  useEffect(() => {
+    fetchQnaPosts();
+  }, [])
+
 
   return (
     <S.Wrapper>
-      <MainHeader title="멋사대학교" />
+      <MainHeader title={schoolName} />
       <S.Buttons>
         <S.Button
           onClick={() => goTo(isStaff ? "/adminAtt" : "/lionAtt")}
@@ -56,7 +81,7 @@ export const SchMainPage = () => {
           <img src={attendance} alt="attendance" />
           <S.Title>출석</S.Title>
         </S.Button>
-        <S.Button>
+        <S.Button onClick={() => goTo('/schNotiBoard')}>
           <img src={notice} alt="notice" />
           <S.Title>공지사항</S.Title>
         </S.Button>
@@ -64,12 +89,12 @@ export const SchMainPage = () => {
       <S.Boards>
         <Board
           title="전체게시판"
-          posts={posts1}
+          posts={defaultPosts}
           link="/schAllBoard"
         />
         <Board
           title="질문게시판"
-          posts={posts2}
+          posts={qnaPosts}
           link="/schQnaBoard"
         />
       </S.Boards>

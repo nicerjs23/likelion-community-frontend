@@ -1,7 +1,6 @@
 //아기사자 출석페이지
 import * as S from "./LionAttPage.styled";
-import { Header } from "@components/Header";
-
+import { F5Header } from "@components/adminAttManage/F5Header";
 import { AttCard } from "@components/adminAtt/AttCard";
 import { LionAttCard } from "@components/lionAttPage/LionAttCard";
 import { useCustomNavigate } from "@hooks/useCustomNavigate";
@@ -68,7 +67,7 @@ export const LionAttPage = () => {
 
   return (
     <S.Wrapper>
-      <Header title="출석" />
+      <F5Header title="출석" />
       <S.Content>
         <S.LionAttScore>
           <S.ScoreContent>

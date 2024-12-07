@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
 export const Left = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
 `
 
 // export const Top = styled.div`

@@ -16,7 +16,12 @@ export const Board = ({title, posts, link}) => {
             </Top>
             <Posts>
                 {posts.map((post, index) => (
-                    <BoardPost key={index} {...post}/>
+                    <BoardPost 
+                        key={index}
+                        content={post.body}
+                        time={post.time}
+                        user={post.anonymous ? "익명":post.writer.nickname}
+                    />
                 ))}
             </Posts>
         </Wrapper>

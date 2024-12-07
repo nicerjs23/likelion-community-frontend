@@ -12,9 +12,15 @@ export const ContentWrap = styled.div`
   margin-top: 90px;
   width: 85vw;
   max-width: 450px;
-  flex-wrap: wrap;
   display: flex;
   flex-direction: column;
+  overflow: auto;
+  -ms-overflow-style: none; /* IE 및 Edge */
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const PasswordWrapper = styled.div`

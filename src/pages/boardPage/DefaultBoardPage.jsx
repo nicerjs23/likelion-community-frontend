@@ -41,7 +41,7 @@ export const DefaultBoardPage = () => {
                   anonymous={post.anonymous}
                   writer={post.writer.nickname}
                   comments_count={post.comments_count}
-                  scraps_count={post.scraps_count}
+                  likes_count={post.likes_count}
                   images={post.images}
                 />
               </S.Back>

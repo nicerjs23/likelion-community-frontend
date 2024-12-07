@@ -14,7 +14,8 @@ export const Button = styled.button`
   border-radius: 4px;
   background-color: #ff7d2c;
   position: fixed;
-  bottom: -70px;
+  bottom: -40px;
   transform: translateX(-50%);
   left: 50%;
+  cursor: pointer;
 `;

@@ -103,6 +103,23 @@ export const CompleteMessage = styled.p`
   margin-top: 15px;
 `;
 
+export const FailureMessage = styled.p`
+  color: #e70000;
+  font-family: ${({ theme }) => theme.fonts.PretendardMedium["font-family"]};
+  font-size: 15px;
+  text-align: center;
+  margin-top: 15px;
+`;
+
+export const BottomWrap = styled.div`
+  position: fixed;
+  bottom: 20px;
+  width: 85vw;
+  max-width: 450px;
+  transform: translateX(-50%);
+  left: 50%;
+`;
+
 export const LogIn = styled.div`
   text-align: center;
   color: #a9a9a9;
@@ -123,8 +140,7 @@ export const LogIn = styled.div`
 `;
 
 export const FileName = styled.span`
-  font-family: ${({ theme }) =>
-    theme.fonts.PretendardMedium["font-family"]};
+  font-family: ${({ theme }) => theme.fonts.PretendardMedium["font-family"]};
   font-size: 14px;
   color: #333;
   margin-left: 10px;

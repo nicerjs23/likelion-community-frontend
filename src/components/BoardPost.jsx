@@ -2,9 +2,22 @@
 import styled from "styled-components";
 export const BoardPost = ({time, user, content}) => {
 
+    const getTime = (time) => {
+		const date=new Date(time);
+		const now = new Date();
+		const elapseTime = Math.floor((now - date) / (1000 * 60));
+
+        if (elapseTime < 0) return `0분 전`;
+		if (elapseTime < 60) return `${elapseTime}분 전`;
+		if (elapseTime < 1440) return `${Math.floor(elapseTime / 60)}시간 전`;
+		return `${Math.floor(elapseTime / 1440)}일 전`;
+	}
+
+    const elapseTime = getTime(time);
+    
     return (
         <Wrapper>
-            <Top>{time}분 전 | {user}</Top>
+            <Top>{elapseTime} | {user}</Top>
             <Content>{content}</Content>
         </Wrapper>
     )
@@ -28,7 +41,7 @@ const Top = styled.p`
 
 const Content = styled.div`
     font-family: ${({ theme }) =>
-    theme.fonts.PretendardBold["font-family"]};
+    theme.fonts.PretendardMedium["font-family"]};
     overflow:hidden;
     text-overflow:ellipsis;
     white-space:nowrap;

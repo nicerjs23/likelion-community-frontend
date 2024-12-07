@@ -10,7 +10,7 @@ import myScrap from "@assets/icons/myScrap.svg";
 import upload from "@assets/icons/upload.svg";
 import defaultProfile from "@assets/images/ExImg.svg";
 import { Link } from "react-router-dom";
-import useFetchCsrfToken from "@hooks/useFetchCsrfToken"; // 커스텀 훅 가져오기
+import useFetchCsrfToken from "@hooks/useFetchCsrfToken";
 import axiosInstance from "@apis/axiosInstance";
 
 export const MyPage = () => {
@@ -24,13 +24,9 @@ export const MyPage = () => {
     track: "",
   });
 
-  // const [details, setDetails] = useState({
-  //   school_name: "",
-  //   track: "",
-  // });
-
   const [schoolVerified, setSchoolVerified] = useState("");
-  const [verificationPhoto, setVerificationPhoto] = useState(null);
+  const [uploadedPhotos, setUploadedPhotos] = useState([]);
+  const [verificationPhotos, setVerificationPhotos] = useState([]);
 
   // CSRF 토큰 설정 훅 호출
   useFetchCsrfToken();
@@ -56,6 +52,7 @@ export const MyPage = () => {
 
         console.log("학교 인증 상태: ", response.data.verification_status.school_status);
         setSchoolVerified(response.data.verification_status.school_status);
+        setUploadedPhotos(response.data.verification_photos || []);
       } else {
         console.log("사용자 정보가 존재하지 않습니다.");
       }
@@ -81,7 +78,10 @@ export const MyPage = () => {
         })
         .then((response) => {
           alert("프로필 사진이 변경되었습니다.");
-          setUserInfo((prevState) => ({ ...prevState, profile_image: response.data.profile_image }));
+          setUserInfo((prevState) => ({
+            ...prevState,
+            profile_image: response.data.profile_image,
+          }));
         })
         .catch((error) => {
           console.error("프로필 사진 변경 오류:", error);
@@ -92,17 +92,25 @@ export const MyPage = () => {
 
   // 학교 인증 파일 선택 핸들러
   const handleFileChange = (e) => {
-    setVerificationPhoto(e.target.files[0]);
+    setVerificationPhotos([...e.target.files]);
   };
 
   // 프로필 이미지 클릭 시 파일 선택 창 열기
   const handleProfileClick = () => {
-    profileInputRef.current.click();
+    if (profileInputRef.current) {
+      profileInputRef.current.click();
+    } else {
+      console.error("프로필 파일 입력 요소가 존재하지 않습니다.");
+    }
   };
 
   // SchoolVerify 영역 클릭 시 파일 선택 창 열기
   const handleFileClick = () => {
-    fileInputRef.current.click();
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    } else {
+      console.error("파일 입력 요소가 존재하지 않습니다.");
+    }
   };
 
   // 학교 인증 요청 함수
@@ -115,14 +123,16 @@ export const MyPage = () => {
     console.log("학교 인증 요청 함수 실행"); // 디버깅용
 
     // 파일이 선택되었는지 확인
-    if (!verificationPhoto) {
+    if (verificationPhotos.length === 0) {
       alert("인증할 사진을 선택해주세요.");
       return;
     }
 
     // FormData 객체 생성 및 파일 추가
     const formData = new FormData();
-    formData.append("verification_photo", verificationPhoto);
+    verificationPhotos.forEach((photo) => {
+      formData.append("photos", photo); // 다중 파일 추가
+    });
 
     // FormData에 포함된 데이터 확인 (디버깅용)
     for (let [key, value] of formData.entries()) {
@@ -131,14 +141,15 @@ export const MyPage = () => {
 
     try {
       // Axios POST 요청 보내기
-      const response = await axiosInstance.post("/mypage/verification/", formData, {
+      const response = await axiosInstance.post("/mypage/verification/photos/", formData, {
         headers: {
-          "Content-Type": "multipart/form-data", // FormData를 전송할 때 multipart/form-data 설정
+          "Content-Type": "multipart/form-data",
         },
-        withCredentials: true, // 쿠키를 포함하여 요청을 보낼 경우
+        withCredentials: true,
       });
 
       alert("학교 인증이 제출되었습니다.");
+      setUploadedPhotos(response.data.verification.verification_photos || []);
       setSchoolVerified("pending");
     } catch (e) {
       // 서버 에러 응답 확인
@@ -151,39 +162,35 @@ export const MyPage = () => {
     }
   };
 
-  {
-    /* 
-  // 학교 인증 요청 함수
-  const submitSchoolVerification = async () => {
-    console.log("학교 인증 요청 함수 실행"); // 디버깅용
+  // 서버로 파일 업로드
+  const handleFileUpload = (e) => {
+    const files = e.target.files; // 선택된 파일들
 
-    if (!verificationPhoto) {
-      alert("인증할 사진을 선택해주세요.");
+    if (!files.length) {
+      alert("파일을 선택해주세요.");
       return;
     }
 
+    // FormData 생성
     const formData = new FormData();
-    formData.append("verification_photo", verificationPhoto);
+    Array.from(files).forEach((file) => formData.append("photos", file)); // 필드 이름 'photos'
 
-    // 학교 인증사진 들어가는지
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}:`, value); // 키와 해당 값을 출력
-    }
-    try {
-      const response = await axiosInstance.post("/mypage/schoolverification/", formData, {
+    // 서버에 파일 업로드 요청
+    axiosInstance
+      .post("/mypage/verification/update_photos/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+      })
+      .then((response) => {
+        alert("파일이 업로드되었습니다.");
+        console.log("업로드 성공:", response.data);
+      })
+      .catch((error) => {
+        console.error("파일 업로드 오류:", error);
+        alert("파일 업로드 중 오류가 발생했습니다.");
       });
-      alert("학교 인증이 제출되었습니다.");
-      setSchoolVerified("pending");
-    } catch (e) {
-      console.error("학교 인증 오류:", e);
-      alert("학교 인증 중 오류가 발생했습니다.");
-    }
   };
-*/
-  }
 
   // 로그아웃 함수
   const handleLogout = async () => {
@@ -243,10 +250,20 @@ export const MyPage = () => {
       </S.Info>
       <S.School>
         {schoolVerified === "approved" ? (
-          <S.SchoolName>
-            내 학교
-            <S.SchoolBadge>{userInfo.school_name ? userInfo.school_name : "학교 없음"}</S.SchoolBadge>
-          </S.SchoolName>
+          <S.SchoolInfo>
+            <S.SchoolName>
+              내 학교
+              <S.SchoolBadge>{userInfo.school_name ? userInfo.school_name : "학교 없음"}</S.SchoolBadge>
+            </S.SchoolName>
+            <S.ModifyPhoto onClick={() => fileInputRef.current.click()}>수정</S.ModifyPhoto>
+            <input
+              type="file"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              multiple
+              onChange={handleFileUpload} // 파일 선택 시 호출
+            />
+          </S.SchoolInfo>
         ) : schoolVerified === "pending" ? (
           <S.SchoolVerify>
             <S.Guide>처리가 진행 중입니다</S.Guide>
@@ -263,7 +280,13 @@ export const MyPage = () => {
                 <img src={upload} alt="upload icon" />
               </S.UploadIcon>
             </S.Guide>
-            <input type="file" ref={fileInputRef} style={{ display: "none" }} onChange={handleFileChange} />
+            <input
+              type="file"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              multiple // 다중 파일 선택 활성화
+              onChange={handleFileChange}
+            />
             <button onClick={submitSchoolVerification}>제출하기</button>
           </S.SchoolVerify>
         )}
